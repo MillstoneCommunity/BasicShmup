@@ -1,0 +1,12 @@
+[gd_scene load_steps=5 format=3 uid="uid://oi6obu3prfed"]
+
+[ext_resource type="Script" uid="uid://cj7on1p1opijx" path="res://Src/Scenes/Root.cs" id="1_a5hps"]
+[ext_resource type="PackedScene" uid="uid://bfse04nirndcg" path="res://Scenes/Battle.tscn" id="2_knkkn"]
+[ext_resource type="PackedScene" uid="uid://d4lu3gpcv47sp" path="res://Scenes/DomainUpdater.tscn" id="2_sxhdm"]
+[ext_resource type="Resource" uid="uid://cbxuojhtkwe5d" path="res://Entities/ShipConfiguration.tres" id="3_knkkn"]
+
+[node name="Root" type="Node"]
+script = ExtResource("1_a5hps")
+_globalScenes = [ExtResource("2_sxhdm")]
+_initialScene = ExtResource("2_knkkn")
+_configurationResources = [ExtResource("3_knkkn")]

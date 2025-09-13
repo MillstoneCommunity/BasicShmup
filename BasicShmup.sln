@@ -1,0 +1,45 @@
+﻿Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MetaFiles", "MetaFiles", "{E2ABD9AF-2B00-40EB-9247-9850BFB2986E}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+		.gitattributes = .gitattributes
+		.gitignore = .gitignore
+		Directory.Build.props = Directory.Build.props
+		LICENSE = LICENSE
+		README.md = README.md
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BasicShmup.Domain", "BasicShmup.Domain\BasicShmup.Domain.csproj", "{B2B06EB1-AEFA-4F95-AFBD-65177693CEA5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BasicShmup.Test.Unit", "BasicShmup.Test.Unit\BasicShmup.Test.Unit.csproj", "{F4478DB0-1F1C-40F2-9103-BC364B293714}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BasicShmup", "BasicShmup\BasicShmup.csproj", "{5FCB0122-8105-49B6-851C-CF48B274545F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		ExportDebug|Any CPU = ExportDebug|Any CPU
+		ExportRelease|Any CPU = ExportRelease|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B2B06EB1-AEFA-4F95-AFBD-65177693CEA5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B2B06EB1-AEFA-4F95-AFBD-65177693CEA5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B2B06EB1-AEFA-4F95-AFBD-65177693CEA5}.ExportDebug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B2B06EB1-AEFA-4F95-AFBD-65177693CEA5}.ExportDebug|Any CPU.Build.0 = Debug|Any CPU
+		{B2B06EB1-AEFA-4F95-AFBD-65177693CEA5}.ExportRelease|Any CPU.ActiveCfg = Debug|Any CPU
+		{B2B06EB1-AEFA-4F95-AFBD-65177693CEA5}.ExportRelease|Any CPU.Build.0 = Debug|Any CPU
+		{F4478DB0-1F1C-40F2-9103-BC364B293714}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F4478DB0-1F1C-40F2-9103-BC364B293714}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F4478DB0-1F1C-40F2-9103-BC364B293714}.ExportDebug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F4478DB0-1F1C-40F2-9103-BC364B293714}.ExportDebug|Any CPU.Build.0 = Debug|Any CPU
+		{F4478DB0-1F1C-40F2-9103-BC364B293714}.ExportRelease|Any CPU.ActiveCfg = Debug|Any CPU
+		{F4478DB0-1F1C-40F2-9103-BC364B293714}.ExportRelease|Any CPU.Build.0 = Debug|Any CPU
+		{5FCB0122-8105-49B6-851C-CF48B274545F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5FCB0122-8105-49B6-851C-CF48B274545F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5FCB0122-8105-49B6-851C-CF48B274545F}.ExportDebug|Any CPU.ActiveCfg = ExportDebug|Any CPU
+		{5FCB0122-8105-49B6-851C-CF48B274545F}.ExportDebug|Any CPU.Build.0 = ExportDebug|Any CPU
+		{5FCB0122-8105-49B6-851C-CF48B274545F}.ExportRelease|Any CPU.ActiveCfg = ExportRelease|Any CPU
+		{5FCB0122-8105-49B6-851C-CF48B274545F}.ExportRelease|Any CPU.Build.0 = ExportRelease|Any CPU
+	EndGlobalSection
+EndGlobal

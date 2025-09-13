@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="PlayerConfiguration" load_steps=3 format=3 uid="uid://cbxuojhtkwe5d"]
+
+[ext_resource type="Texture2D" uid="uid://ch1yrmiy72ema" path="res://icon.svg" id="1_w2heg"]
+[ext_resource type="Script" uid="uid://2nun2y5odguh" path="res://Src/Entities/Ship/ShipConfiguration.cs" id="2_sixky"]
+
+[resource]
+script = ExtResource("2_sixky")
+_speed = 750.0
+_radius = 75.0
+_texture = ExtResource("1_w2heg")
+metadata/_custom_type_script = "uid://2nun2y5odguh"
