@@ -8,6 +8,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MetaFiles", "MetaFiles", "{
 		Directory.Build.props = Directory.Build.props
 		LICENSE = LICENSE
 		README.md = README.md
+		CONTRIBUTING.md = CONTRIBUTING.md
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BasicShmup.Domain", "BasicShmup.Domain\BasicShmup.Domain.csproj", "{B2B06EB1-AEFA-4F95-AFBD-65177693CEA5}"
