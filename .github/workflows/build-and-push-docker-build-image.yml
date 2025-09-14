@@ -15,10 +15,15 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
 
     steps:
     - name: Checkout the repository
       uses: actions/checkout@v3
+      with:
+        ref: ${{ github.event.inputs.branch }}
 
     - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v2
@@ -32,11 +37,14 @@ jobs:
 
     - name: Build Docker image
       run: |
-        docker build -t ghcr.io/${{ github.repository }}/dotnet-godot:${{ github.event.inputs.tag }} .
+        docker build \
+          -t ${{ vars.CONTAINER_REGISTRY }}/dotnet-godot:${{ github.event.inputs.tag }} \
+          -f ./Infrastructure/Building/Dockerfile \
+          .
 
     - name: Push Docker image
       run: |
-        docker push ghcr.io/${{ github.repository }}/dotnet-godot:${{ github.event.inputs.tag }}
+        docker push ${{ vars.CONTAINER_REGISTRY }}/dotnet-godot:${{ github.event.inputs.tag }}
 
     - name: Logout from Docker
       run: |

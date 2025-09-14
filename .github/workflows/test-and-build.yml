@@ -1,0 +1,64 @@
+﻿name: Test and build
+
+on:
+  pull_request:
+  workflow_dispatch:
+    inputs:
+      branch:
+        description: 'Branch to test and build'
+        required: true
+        default: 'main'
+      tag:
+        description: 'Docker tag of image to use for building'
+        required: true
+        default: 'latest'
+  pull_request_review:
+    types: [submitted, edited]
+
+jobs:
+  test-and-build:
+    if: github.event.pull_request.base.ref == 'main' && (github.event_name == 'workflow_dispatch' || (github.event.review.state == 'approved'))
+    runs-on: ubuntu-latest
+
+    concurrency:
+      group: test-and-build-${{ github.event.pull_request.number }}
+      cancel-in-progress: true
+
+    container:
+      image: ${{ vars.CONTAINER_REGISTRY }}/dotnet-godot:${{ github.event.inputs.tag }}
+      credentials:
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+
+    steps:
+      - name: Move godot templates
+        # not a good solution, as the pipeline here guesses the version of godot we use
+        run: |
+          mkdir -p ${HOME}/.local/share/godot/export_templates/4.4.1.stable.mono/
+          mv /godot/templates/* ${HOME}/.local/share/godot/export_templates/4.4.1.stable.mono/
+
+      - name: Set PR approval branch name
+        if: github.event.review.state == 'approved' || github.event_name == 'pull_request'
+        run: echo "BRANCH_NAME=${{ github.event.pull_request.head.ref }}" >> $GITHUB_ENV
+
+      - name: Set workflow_dispatch branch name
+        if: github.event_name == 'workflow_dispatch'
+        run: echo "BRANCH_NAME=${{ github.event.inputs.branch }}" >> $GITHUB_ENV
+
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ env.BRANCH_NAME }}
+
+      - name: test dotnet
+        run: |
+          dotnet build
+          dotnet test
+
+      - name: build goodt
+        run: |
+          mkdir -p /build/linux
+          mkdir -p /build/windows
+
+          godot --headless --export-release Linux /build/linux/BasicShmup.x86_64 ./BasicShmup/project.godot
+          godot --headless --export-release Windows /build/windows/BasicShmup.exe ./BasicShmup/project.godot
