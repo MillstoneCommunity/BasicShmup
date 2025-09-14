@@ -1,10 +1,11 @@
-﻿using Godot;
+﻿using BasicShmup.Domain;
+using Godot;
 
 namespace BasicShmup.Input;
 
 public static class InputActions
 {
-    private const float Tolerance = 0.01f;
+    private const float Tolerance = FloatConstants.Tolerance;
 
     private const string MoveUpActionName = "Move.Up";
     private const string MoveDownActionName = "Move.Down";

@@ -1,0 +1,19 @@
+# Contribution guide
+
+At the moment I do not know how many people will want to contribute, nor what the background of a potential contributor will
+be.
+For this reason the following two principles should be in focus when developing this project.
+
+1. **Editor integration:** The code should integrate with the Godot editor, such that configuration can be done in the
+   editor, without have to know how do program.
+2. **Durability:**
+   The code should be written in away, that makes it hard to break the game, though mis-configuration.
+   Changes in the godot project, that may break game behaviour, should be caught at game startup, *not* when the
+   mis-configured entity is spawned.
+
+*Note*: The current integration with the Godot input system does not follow the Durability principle.
+It is a quick implementation, that should be replaced later.
+
+## Issues/Tasks
+
+**todo**
