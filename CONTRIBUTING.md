@@ -16,4 +16,5 @@ It is a quick implementation, that should be replaced later.
 
 ## Issues/Tasks
 
-**todo**
+The project uses [Github issues](https://github.com/MillstoneCommunity/BasicShmup/issues) to tack tasks.
+If you wish to contribute grab for at [`task`](https://github.com/MillstoneCommunity/BasicShmup/issues?q=is%3Aissue%20state%3Aopen%20type%3ATask), and start developing/designing.
