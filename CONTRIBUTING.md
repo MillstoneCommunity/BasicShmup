@@ -1,7 +1,7 @@
 # Contribution guide
 
-At the moment I do not know how many people will want to contribute, nor what the background of a potential contributor will
-be.
+At the moment I do not know how many people will want to contribute, nor what the background of a potential contributor
+will be.
 For this reason the following two principles should be in focus when developing this project.
 
 1. **Editor integration:** The code should integrate with the Godot editor, such that configuration can be done in the
@@ -16,4 +16,7 @@ It is a quick implementation, that should be replaced later.
 
 ## Issues/Tasks
 
-**todo**
+The project uses [Github issues](https://github.com/MillstoneCommunity/BasicShmup/issues) to tack tasks.
+If you wish to contribute grab for at
+[`task`](https://github.com/MillstoneCommunity/BasicShmup/issues?q=is%3Aissue%20state%3Aopen%20type%3ATask), and start
+developing/designing.

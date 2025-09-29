@@ -1,7 +1,6 @@
 ﻿name: Test and build
 
 on:
-  pull_request:
   workflow_dispatch:
     inputs:
       branch:
@@ -17,7 +16,7 @@ on:
 
 jobs:
   test-and-build:
-    if: github.event.pull_request.base.ref == 'main' && (github.event_name == 'workflow_dispatch' || (github.event.review.state == 'approved'))
+    if: github.event_name == 'workflow_dispatch' || (github.event.pull_request.base.ref == 'main' && github.event.review.state == 'approved')
     runs-on: ubuntu-latest
 
     concurrency:
