@@ -18,7 +18,8 @@ RUN mv /godot/Godot_v${GODOT_VERSION}-stable_mono_linux.x86_64 /godot/godot
 
 # Downlaod export templates to /godot/templates
 RUN curl -L -o templates.tpz https://github.com/godotengine/godot/releases/download/${GODOT_VERSION}-stable/Godot_v${GODOT_VERSION}-stable_mono_export_templates.tpz
-RUN unzip -d /godot/ templates.tpz
+RUN mkdir -p /godot/export_templates/${GODOT_VERSION}.stable.mono/
+RUN unzip -j -d /godot/export_templates/${GODOT_VERSION}.stable.mono/ templates.tpz
 
 FROM base AS builder
 
