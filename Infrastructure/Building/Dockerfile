@@ -1,6 +1,6 @@
 ﻿FROM mcr.microsoft.com/dotnet/sdk:8.0 AS base
 
-ARG GODOT_VERSION="4.4.1"
+ARG GODOT_VERSION="4.5"
 
 RUN apt update
 

@@ -33,8 +33,8 @@ jobs:
       - name: Move godot templates
         # not a good solution, as the pipeline here guesses the version of godot we use
         run: |
-          mkdir -p ${HOME}/.local/share/godot/export_templates/4.4.1.stable.mono/
-          mv /godot/templates/* ${HOME}/.local/share/godot/export_templates/4.4.1.stable.mono/
+          mkdir -p ${HOME}/.local/share/godot/export_templates/4.5.stable.mono/
+          mv /godot/templates/* ${HOME}/.local/share/godot/export_templates/4.5.stable.mono/
 
       - name: Set PR approval branch name
         if: github.event.review.state == 'approved' || github.event_name == 'pull_request'
