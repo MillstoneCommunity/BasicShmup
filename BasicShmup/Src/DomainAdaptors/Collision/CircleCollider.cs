@@ -1,7 +1,7 @@
 ﻿using BasicShmup.Domain.Dynamics;
 using BasicShmup.Domain.Movements;
 using BasicShmup.Extensions;
-using BasicShmup.Scenes.SceneConfigurations;
+using BasicShmup.ServiceProviders;
 using Godot;
 
 namespace BasicShmup.DomainAdaptors.Collision;

@@ -11,9 +11,14 @@ config_version=5
 [application]
 
 config/name="BasicShmup"
-run/main_scene="uid://oi6obu3prfed"
+run/main_scene="uid://bfse04nirndcg"
 config/features=PackedStringArray("4.5", "C#", "Forward Plus")
 config/icon="res://icon.svg"
+
+[autoload]
+
+ServiceProvider="*res://Src/ServiceProviders/ServiceProviderNode.cs"
+DomainUpdater="*res://Src/DomainAdaptors/DomainUpdater.cs"
 
 [dotnet]
 
@@ -22,7 +27,7 @@ project/solution_directory="../"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/ResourcePreview/plugin.cfg")
+enabled=PackedStringArray()
 
 [input]
 

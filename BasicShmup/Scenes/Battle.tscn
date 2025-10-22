@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://b7a1ei2n8fpjt" path="res://Src/Scenes/Battle.cs" id="1_wvl2i"]
 [ext_resource type="Script" uid="uid://ci2wfskyfrxip" path="res://Src/DomainAdaptors/Collision/CircleCollider.cs" id="2_2h7oj"]
-[ext_resource type="Script" uid="uid://b1v3ojbn03v0x" path="res://Src/Entities/Projectile/ProjectileView.cs" id="3_2h7oj"]
+[ext_resource type="Script" uid="uid://b1v3ojbn03v0x" path="res://Src/Entities/Projectiles/ProjectileView.cs" id="3_2h7oj"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_1samx"]
 
