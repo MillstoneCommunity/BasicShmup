@@ -2,7 +2,7 @@
 using BasicShmup.Domain.Entities.Ship;
 using BasicShmup.Domain.Movements;
 using BasicShmup.DomainAdaptors.Collision;
-using BasicShmup.Entities.Ship;
+using BasicShmup.Entities.Ships;
 using BasicShmup.ServiceProviders.Configurations;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -15,7 +15,7 @@ public static partial class ServiceCollectionExtensions
         return serviceCollection
             .AddSingleton<ICollisionDetector, GodotCollisionDetector>()
             .AddSingleton(typeof(INodeReference<>), typeof(NodeReference<>))
-            .AddSingleton<IShipFactory, RootShipFactory>();
+            .AddSingleton<IShipFactory, ShipFactory>();
     }
 
     public static IServiceCollection AddConfigurations(

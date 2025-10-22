@@ -1,17 +1,15 @@
 using System.ComponentModel.DataAnnotations;
 using BasicShmup.Domain.Dynamics;
-using BasicShmup.Domain.Entities.Ship;
 using BasicShmup.ServiceProviders.Configurations;
 using Godot;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace BasicShmup.Entities.Ship;
+namespace BasicShmup.Entities.Ships;
 
 [Tool]
 [GlobalClass]
 public partial class ShipConfiguration :
     Resource,
-    IShipViewFactory,
     IShipConfiguration,
     IConfiguration
 {
@@ -27,21 +25,10 @@ public partial class ShipConfiguration :
 
     public Speed Speed => _speed;
     public float Radius => _radius;
+    public Texture2D Texture => _texture;
 
-    // todo remove
-    public ShipView Create(IShip ship)
-    {
-        return new ShipView
-        {
-            Ship = ship,
-            Texture = _texture
-        };
-    }
-
-    // todo remove
     public void Configure(IServiceCollection serviceCollection)
     {
-        serviceCollection.AddSingleton<IShipViewFactory>(this);
         serviceCollection.AddSingleton<IShipConfiguration>(this);
     }
 }

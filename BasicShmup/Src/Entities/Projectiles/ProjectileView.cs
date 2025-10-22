@@ -1,6 +1,6 @@
 ﻿using Godot;
 
-namespace BasicShmup.Entities.Projectile;
+namespace BasicShmup.Entities.Projectiles;
 
 [GlobalClass]
 public partial class ProjectileView : Node2D

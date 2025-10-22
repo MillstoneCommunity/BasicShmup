@@ -3,7 +3,7 @@ using BasicShmup.Extensions;
 using BasicShmup.Input;
 using Godot;
 
-namespace BasicShmup.Entities.Ship;
+namespace BasicShmup.Entities.Ships;
 
 public partial class PlayerController : Node
 {

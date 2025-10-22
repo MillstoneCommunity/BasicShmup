@@ -2,7 +2,7 @@
 using BasicShmup.Extensions;
 using Godot;
 
-namespace BasicShmup.Entities.Ship;
+namespace BasicShmup.Entities.Ships;
 
 public partial class ShipView : Node2D
 {

@@ -4,12 +4,11 @@ using BasicShmup.Domain.Movements;
 using BasicShmup.Scenes;
 using BasicShmup.ServiceProviders;
 
-namespace BasicShmup.Entities.Ship;
+namespace BasicShmup.Entities.Ships;
 
-public class RootShipFactory(
+public class ShipFactory(
     INodeReference<Battle> battle,
     IShipConfiguration shipConfiguration,
-    IShipViewFactory shipViewFactory,
     ICollisionDetector collisionDetector,
     IEntityRepository repository) : IShipFactory
 {
@@ -19,13 +18,17 @@ public class RootShipFactory(
         {
             Radius = shipConfiguration.Radius
         };
-        var ship = new Domain.Entities.Ship.Ship(movementStrategy)
+        var ship = new Ship(movementStrategy)
         {
             Speed = shipConfiguration.Speed
         };
         repository.Add(ship);
 
-        var view = shipViewFactory.Create(ship);
+        var view = new ShipView
+        {
+            Ship = ship,
+            Texture = shipConfiguration.Texture
+        };
 
         battle
             .GetNode()
