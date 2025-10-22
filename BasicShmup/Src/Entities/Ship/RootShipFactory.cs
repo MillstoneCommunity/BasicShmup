@@ -2,7 +2,7 @@ using BasicShmup.Domain.Entities;
 using BasicShmup.Domain.Entities.Ship;
 using BasicShmup.Domain.Movements;
 using BasicShmup.Scenes;
-using BasicShmup.Scenes.SceneConfigurations;
+using BasicShmup.ServiceProviders;
 
 namespace BasicShmup.Entities.Ship;
 

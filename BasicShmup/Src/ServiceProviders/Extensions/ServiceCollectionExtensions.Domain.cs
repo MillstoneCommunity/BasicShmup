@@ -2,7 +2,7 @@
 using BasicShmup.Domain.GameStates;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace BasicShmup.Extensions;
+namespace BasicShmup.ServiceProviders.Extensions;
 
 public static partial class ServiceCollectionExtensions
 {

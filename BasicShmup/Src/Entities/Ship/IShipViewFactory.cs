@@ -2,7 +2,7 @@
 
 namespace BasicShmup.Entities.Ship;
 
-public interface IShipViewFactory
+public interface IShipViewFactory // todo remove
 {
     ShipView Create(IShip ship);
 }

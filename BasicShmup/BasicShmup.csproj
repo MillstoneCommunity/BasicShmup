@@ -10,7 +10,6 @@
 
   <ItemGroup>
     <Content Include=".gitignore" />
-    <Content Include="addons\ResourcePreview\plugin.cfg" />
     <Content Include="Entities\*" />
     <Content Include="icon.svg" />
     <Content Include="project.godot" />

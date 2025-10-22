@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace BasicShmup.Scenes.SceneConfigurations;
+namespace BasicShmup.ServiceProviders;
 
 [AttributeUsage(AttributeTargets.Field)]
 public class InjectAttribute : Attribute;

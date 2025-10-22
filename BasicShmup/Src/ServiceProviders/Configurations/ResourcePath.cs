@@ -1,4 +1,4 @@
-﻿namespace BasicShmup.Validations;
+﻿namespace BasicShmup.ServiceProviders.Configurations;
 
 public record struct ResourcePath(string Path)
 {

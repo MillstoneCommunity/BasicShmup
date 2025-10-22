@@ -1,7 +1,7 @@
 ﻿using System;
 using Godot;
 
-namespace BasicShmup.Scenes.SceneConfigurations;
+namespace BasicShmup.ServiceProviders;
 
 public class NodeReference<TNode> : INodeReference<TNode> where TNode : Node
 {

@@ -1,8 +1,7 @@
 using System.ComponentModel.DataAnnotations;
-using BasicShmup.addons.ResourcePreview;
-using BasicShmup.Configurations;
 using BasicShmup.Domain.Dynamics;
 using BasicShmup.Domain.Entities.Ship;
+using BasicShmup.ServiceProviders.Configurations;
 using Godot;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -11,10 +10,10 @@ namespace BasicShmup.Entities.Ship;
 [Tool]
 [GlobalClass]
 public partial class ShipConfiguration :
-    ConfigurationResource,
-    IResourcePreview,
+    Resource,
     IShipViewFactory,
-    IShipConfiguration
+    IShipConfiguration,
+    IConfiguration
 {
     [Export]
     private float _speed = 750;
@@ -29,16 +28,7 @@ public partial class ShipConfiguration :
     public Speed Speed => _speed;
     public float Radius => _radius;
 
-    public Node GetPreviewNode()
-    {
-        var preview = Create(NullShip.Instance);
-
-        // disable process, to not have the ShipController fail to get input
-        preview.ProcessMode = Node.ProcessModeEnum.Disabled;
-
-        return preview;
-    }
-
+    // todo remove
     public ShipView Create(IShip ship)
     {
         return new ShipView
@@ -48,7 +38,8 @@ public partial class ShipConfiguration :
         };
     }
 
-    public override void Configure(IServiceCollection serviceCollection)
+    // todo remove
+    public void Configure(IServiceCollection serviceCollection)
     {
         serviceCollection.AddSingleton<IShipViewFactory>(this);
         serviceCollection.AddSingleton<IShipConfiguration>(this);

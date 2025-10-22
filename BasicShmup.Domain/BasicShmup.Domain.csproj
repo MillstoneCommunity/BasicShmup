@@ -9,4 +9,8 @@
     <AssemblyName>BasicShmup.Domain</AssemblyName>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Castle.Core" Version="5.1.1" />
+  </ItemGroup>
+
 </Project>

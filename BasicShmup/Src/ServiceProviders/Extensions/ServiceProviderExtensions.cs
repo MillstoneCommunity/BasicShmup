@@ -1,26 +1,21 @@
-﻿
-using System;
+﻿using System;
 using System.Linq;
 using System.Reflection;
-using BasicShmup.Scenes.SceneConfigurations;
 using Godot;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace BasicShmup.Extensions;
+namespace BasicShmup.ServiceProviders.Extensions;
 
 public static class ServiceProviderExtensions
 {
     #region Register node services
 
-    public static void RegisterNodeServices(this IServiceProvider serviceProvider, Node root)
+    public static void TryRegisterNodeService(this IServiceProvider serviceProvider, Node node)
     {
-        foreach (var node in root.GetNodesInSubTree())
-        {
-            if (!IsNodeService(node))
-                continue;
+        if (!IsNodeService(node))
+            return;
 
-            serviceProvider.RegisterNodeService(node);
-        }
+        serviceProvider.RegisterNodeService(node);
     }
 
     private static bool IsNodeService(Node node)
@@ -49,18 +44,15 @@ public static class ServiceProviderExtensions
 
     #region Inject services into nodes
 
-    public static void InjectServices(this IServiceProvider serviceProvider, Node root)
+    public static void InjectServices(this IServiceProvider serviceProvider, Node node)
     {
-        foreach (var node in root.GetNodesInSubTree())
-        {
-            var fields = node
-                .GetType()
-                .GetFields(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance)
-                .Where(ShouldBeInjected);
+        var fields = node
+            .GetType()
+            .GetFields(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance)
+            .Where(ShouldBeInjected);
 
-            foreach (var field in fields)
-                InjectService(serviceProvider, node, field);
-        }
+        foreach (var field in fields)
+            InjectService(serviceProvider, node, field);
     }
 
     private static bool ShouldBeInjected(FieldInfo field)

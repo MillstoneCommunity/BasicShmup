@@ -1,5 +1,5 @@
 ﻿using BasicShmup.Domain.GameStates;
-using BasicShmup.Scenes.SceneConfigurations;
+using BasicShmup.ServiceProviders;
 using Godot;
 
 namespace BasicShmup.Scenes;

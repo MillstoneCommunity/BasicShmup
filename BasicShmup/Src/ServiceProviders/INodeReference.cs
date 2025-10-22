@@ -1,6 +1,6 @@
 ﻿using Godot;
 
-namespace BasicShmup.Scenes.SceneConfigurations;
+namespace BasicShmup.ServiceProviders;
 
 public interface INodeReference<TNode> where TNode : Node
 {

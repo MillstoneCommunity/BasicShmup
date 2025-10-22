@@ -1,6 +1,6 @@
 ﻿using BasicShmup.Domain.Dynamics;
 using BasicShmup.Domain.Movements;
-using BasicShmup.Scenes.SceneConfigurations;
+using BasicShmup.ServiceProviders;
 
 namespace BasicShmup.DomainAdaptors.Collision;
 

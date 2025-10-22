@@ -1,9 +1,9 @@
 ﻿using BasicShmup.Domain.Dynamics;
 using BasicShmup.Domain.Entities;
-using BasicShmup.Scenes.SceneConfigurations;
+using BasicShmup.ServiceProviders;
 using Godot;
 
-namespace BasicShmup.Scenes;
+namespace BasicShmup.DomainAdaptors;
 
 public partial class DomainUpdater : Node
 {
