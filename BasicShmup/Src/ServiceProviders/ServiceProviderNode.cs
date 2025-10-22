@@ -57,7 +57,7 @@ public partial class ServiceProviderNode : Node
         var configurationErrors = configurations.SelectMany(_configurationValidator.ValidateConfiguration);
 
         foreach (var validationError in configurationErrors)
-            GD.PrintErr(validationError);
+            GD.PrintErr(validationError.ErrorMessage);
     }
 
     private void InjectServicesIntoSubtreeOf(Node root)
