@@ -1,8 +1,7 @@
 ﻿using BasicShmup.Dynamics;
-using BasicShmup.Input;
 using Godot;
 
-namespace BasicShmup.Entities.Controllers;
+namespace BasicShmup.Input.Controllers;
 
 public class CharacterBodyControllerStrategy : ICharacterBodyControllerStrategy
 {

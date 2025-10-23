@@ -1,16 +1,14 @@
 [gd_scene load_steps=4 format=3 uid="uid://bfse04nirndcg"]
 
+[ext_resource type="Script" uid="uid://bd80nyixmxuxd" path="res://Src/Entities/Projectiles/Projectile.cs" id="2_vr6xi"]
 [ext_resource type="Script" uid="uid://bpsxhv1d16ykv" path="res://Src/Entities/Ships/Player.cs" id="4_1samx"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wvl2i"]
 size = Vector2(29.51, 750)
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_vr6xi"]
-radius = 116.32
-
 [node name="Battle" type="Node2D"]
 
-[node name="Player" type="Node" parent="."]
+[node name="Player" type="Node2D" parent="."]
 script = ExtResource("4_1samx")
 metadata/_custom_type_script = "uid://bpsxhv1d16ykv"
 
@@ -20,9 +18,7 @@ position = Vector2(1020, 278)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Wall"]
 shape = SubResource("RectangleShape2D_wvl2i")
 
-[node name="Projectile" type="Area2D" parent="."]
-position = Vector2(557, 581)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Projectile"]
-shape = SubResource("CircleShape2D_vr6xi")
-debug_color = Color(0.9993934, 0, 0.12844995, 0.41960785)
+[node name="Projectile" type="Node2D" parent="."]
+position = Vector2(535, 554)
+script = ExtResource("2_vr6xi")
+metadata/_custom_type_script = "uid://bd80nyixmxuxd"

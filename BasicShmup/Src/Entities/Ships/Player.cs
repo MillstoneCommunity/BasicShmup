@@ -1,10 +1,12 @@
-﻿using BasicShmup.Entities.Controllers;
+﻿using BasicShmup.Entities.Projectiles;
+using BasicShmup.Events;
+using BasicShmup.Input.Controllers;
 using Godot;
 
 namespace BasicShmup.Entities.Ships;
 
 [GlobalClass]
-public partial class Player : Node
+public partial class Player : Node2D, IEntity, IEventHandler<ProjectileHitEvent>
 {
     private readonly ICharacterBodyControllerStrategy _controllerStrategy = new CharacterBodyControllerStrategy();
     private readonly CharacterBody2D _body;
@@ -22,18 +24,24 @@ public partial class Player : Node
     {
         _body = CreateBody();
 
-        _body.AddChild(new Sprite2D
+        var sprite = new Sprite2D
         {
             Texture = _texture,
-            TextureFilter = CanvasItem.TextureFilterEnum.Nearest,
+            TextureFilter = TextureFilterEnum.Nearest,
             Scale = new Vector2(4, 4)
-        });
+        };
+        _body.AddChild(sprite);
 
         AddChild(_body);
     }
 
     private CharacterBody2D CreateBody()
     {
+        var body = new CharacterBody2D
+        {
+            MotionMode = CharacterBody2D.MotionModeEnum.Floating
+        };
+
         var collisionShape = new CollisionShape2D
         {
             Shape = new CircleShape2D
@@ -41,17 +49,24 @@ public partial class Player : Node
                 Radius = _radius
             }
         };
-
-        var body = new CharacterBody2D
-        {
-            MotionMode = CharacterBody2D.MotionModeEnum.Floating
-        };
         body.AddChild(collisionShape);
+
+        var entityReference = new EntityReference
+        {
+            Entity = this
+        };
+        body.AddChild(entityReference);
+
         return body;
     }
 
     public override void _PhysicsProcess(double delta)
     {
         _controllerStrategy.Move(_body, _speed);
+    }
+
+    public void Handle(ProjectileHitEvent projectileHitEvent)
+    {
+        GD.Print("Player was hit");
     }
 }
