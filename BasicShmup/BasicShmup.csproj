@@ -19,8 +19,4 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="9.0.8" />
   </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\BasicShmup.Domain\BasicShmup.Domain.csproj" />
-  </ItemGroup>
 </Project>

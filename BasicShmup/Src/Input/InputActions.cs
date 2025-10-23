@@ -1,5 +1,4 @@
-﻿using BasicShmup.Domain;
-using Godot;
+﻿using Godot;
 
 namespace BasicShmup.Input;
 
