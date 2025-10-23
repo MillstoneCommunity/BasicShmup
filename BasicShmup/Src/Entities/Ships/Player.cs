@@ -16,8 +16,7 @@ public partial class Player : Node
     private float _radius = 75;
 
     [Export]
-    // todo use error texture
-    private Texture2D _texture = ResourceLoader.Load<Texture2D>("res://icon.svg");
+    private Texture2D _texture = ResourceLoader.Load<Texture2D>("res://Resources/ErrorTexture.png");
 
     public Player()
     {
@@ -25,7 +24,9 @@ public partial class Player : Node
 
         _body.AddChild(new Sprite2D
         {
-            Texture = _texture
+            Texture = _texture,
+            TextureFilter = CanvasItem.TextureFilterEnum.Nearest,
+            Scale = new Vector2(4, 4)
         });
 
         AddChild(_body);
