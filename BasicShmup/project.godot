@@ -18,7 +18,6 @@ config/icon="res://icon.svg"
 [autoload]
 
 ServiceProvider="*res://Src/ServiceProviders/ServiceProviderNode.cs"
-DomainUpdater="*res://Src/DomainAdaptors/DomainUpdater.cs"
 
 [dotnet]
 

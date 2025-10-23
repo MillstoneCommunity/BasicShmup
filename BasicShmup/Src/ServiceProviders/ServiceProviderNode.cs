@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using BasicShmup.Extensions;
-using BasicShmup.ServiceProviders.Configurations;
+﻿using BasicShmup.Extensions;
 using BasicShmup.ServiceProviders.Extensions;
 using Godot;
 using Microsoft.Extensions.DependencyInjection;
@@ -10,9 +7,6 @@ namespace BasicShmup.ServiceProviders;
 
 public partial class ServiceProviderNode : Node
 {
-    private readonly ConfigurationFinder _configurationFinder = new();
-    private readonly ConfigurationValidator _configurationValidator = new();
-
     private ServiceProvider? _serviceProvider;
     private IServiceScope? _scope;
 
@@ -34,13 +28,7 @@ public partial class ServiceProviderNode : Node
 
     private ServiceProvider CreateServiceProvider()
     {
-        var configurations = _configurationFinder.GetConfigurations().ToList();
-        Validate(configurations);
-
         return new ServiceCollection()
-            .AddDomain()
-            .AddConfigurations(configurations)
-            .AddGodotIntegrationServices()
             .BuildServiceProvider(
 #if TOOLS
                 new ServiceProviderOptions
@@ -50,14 +38,6 @@ public partial class ServiceProviderNode : Node
                 }
 #endif
             );
-    }
-
-    private void Validate(List<IConfiguration> configurations)
-    {
-        var configurationErrors = configurations.SelectMany(_configurationValidator.ValidateConfiguration);
-
-        foreach (var validationError in configurationErrors)
-            GD.PrintErr(validationError.ErrorMessage);
     }
 
     private void InjectServicesIntoSubtreeOf(Node root)
@@ -75,7 +55,6 @@ public partial class ServiceProviderNode : Node
             return;
         }
 
-        _scope.ServiceProvider.TryRegisterNodeService(node);
         _scope.ServiceProvider.InjectServices(node);
     }
 

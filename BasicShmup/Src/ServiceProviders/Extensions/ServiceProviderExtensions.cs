@@ -8,40 +8,6 @@ namespace BasicShmup.ServiceProviders.Extensions;
 
 public static class ServiceProviderExtensions
 {
-    #region Register node services
-
-    public static void TryRegisterNodeService(this IServiceProvider serviceProvider, Node node)
-    {
-        if (!IsNodeService(node))
-            return;
-
-        serviceProvider.RegisterNodeService(node);
-    }
-
-    private static bool IsNodeService(Node node)
-    {
-        return node.GetType().IsDefined(typeof(NodeServiceAttribute));
-    }
-
-    private static void RegisterNodeService(this IServiceProvider serviceProvider, Node nodeService)
-    {
-        var genericRegisterMethod = typeof(ServiceProviderExtensions)
-            .GetMethod(nameof(Register), BindingFlags.Static | BindingFlags.NonPublic)!;
-
-        var nodeServiceType = nodeService.GetType();
-        var registerMethod = genericRegisterMethod.MakeGenericMethod(nodeServiceType);
-        registerMethod.Invoke(null, [serviceProvider, nodeService]);
-    }
-
-    private static void Register<TNode>(IServiceProvider serviceProvider, TNode nodeService) where TNode : Node
-    {
-        serviceProvider
-            .GetRequiredService<INodeReference<TNode>>()
-            .SetNode(nodeService);
-    }
-
-    #endregion
-
     #region Inject services into nodes
 
     public static void InjectServices(this IServiceProvider serviceProvider, Node node)
