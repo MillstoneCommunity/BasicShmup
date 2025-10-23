@@ -54,5 +54,3 @@ public partial class Player : Node
         _controllerStrategy.Move(_body, _speed);
     }
 }
-
-// todo update documentation
