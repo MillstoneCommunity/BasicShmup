@@ -8,6 +8,12 @@ public partial class PlayerController : Node
 {
     public required IShip Ship { get; init; }
 
+    public override void _Process(double delta)
+    {
+        if (InputActions.IsFiring)
+            Ship.FireProjectile();
+    }
+
     public override void _PhysicsProcess(double delta)
     {
         var movementDirection = InputActions.GetMovementDirection();

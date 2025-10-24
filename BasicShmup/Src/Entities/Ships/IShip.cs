@@ -5,4 +5,5 @@ namespace BasicShmup.Entities.Ships;
 public interface IShip
 {
     void Move(Direction movementDirection);
+    void FireProjectile();
 }

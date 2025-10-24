@@ -1,4 +1,5 @@
-﻿using BasicShmup.Dynamics;
+﻿using System;
+using BasicShmup.Dynamics;
 using Godot;
 
 namespace BasicShmup.Entities.Ships;
@@ -49,9 +50,19 @@ public partial class Ship : Node, IShip
         AddChild(_body);
     }
 
+    #region IShip
+
     public void Move(Direction movementDirection)
     {
         _body.Velocity = (Speed * movementDirection).VectorValue;
         _body.MoveAndSlide();
     }
+
+    public void FireProjectile()
+    {
+        // todo
+        throw new NotImplementedException();
+    }
+
+    #endregion
 }

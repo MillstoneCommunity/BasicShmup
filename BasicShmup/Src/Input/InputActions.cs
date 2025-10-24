@@ -9,6 +9,10 @@ public static class InputActions
     private const string MoveDownActionName = "Move.Down";
     private const string MoveLeftActionName = "Move.Left";
     private const string MoveRightActionName = "Move.Right";
+    private const string FireActionName = "Fire";
+
+
+    public static bool IsFiring => Godot.Input.IsActionPressed(FireActionName);
 
     public static Direction GetMovementDirection()
     {
