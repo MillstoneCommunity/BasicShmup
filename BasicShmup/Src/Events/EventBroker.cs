@@ -4,13 +4,13 @@ using Godot;
 
 namespace BasicShmup.Events;
 
-public partial class MessageBroker : Node
+public class EventBroker : IEventSender, IEventReceiver
 {
-    public static MessageBroker Instance { get; } = new();
+    public static EventBroker Instance { get; } = new();
 
     private readonly Dictionary<Type, List<object>> _eventHandlers = new();
 
-    private MessageBroker()
+    private EventBroker()
     {
     }
 
@@ -24,7 +24,7 @@ public partial class MessageBroker : Node
         handlers.Add(eventHandler);
     }
 
-    public void RemoveEventHandler<TEvent>(IEventHandler<TEvent> eventHandler)
+    public void TryRemoveEventHandler<TEvent>(IEventHandler<TEvent> eventHandler)
     {
         var eventType = typeof(TEvent);
         _eventHandlers.TryGetValue(eventType, out var eventHandlers);
@@ -48,7 +48,10 @@ public partial class MessageBroker : Node
 
         _eventHandlers.TryGetValue(eventType, out var eventHandlers);
         if (eventHandlers == null)
+        {
+            GD.PrintErr($"Event sent, but no handlers are listening for events of type {eventType.FullName}");
             return;
+        }
 
         foreach (var eventHandler in eventHandlers)
             ((IEventHandler<TEvent>)eventHandler).Handle(@event);

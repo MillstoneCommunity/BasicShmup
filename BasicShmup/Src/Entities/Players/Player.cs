@@ -7,9 +7,16 @@ using Godot;
 namespace BasicShmup.Entities.Players;
 
 [GlobalClass]
-public partial class Player : Node2D, IEntity, IEventHandler<ProjectileHitEvent>
+public partial class Player : Node, IEntity, IEventHandler<ProjectileHitEvent>
 {
     private readonly Ship _ship;
+
+    [Export]
+    private Vector2 Position
+    {
+        get => _ship.Position;
+        set => _ship.Position = value;
+    }
 
     [Export]
     private float Speed

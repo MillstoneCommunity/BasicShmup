@@ -1,11 +1,15 @@
-﻿using System;
-using BasicShmup.Dynamics;
+﻿using BasicShmup.Dynamics;
+using BasicShmup.Entities.Battle;
+using BasicShmup.Entities.Projectiles;
+using BasicShmup.Events;
 using Godot;
 
 namespace BasicShmup.Entities.Ships;
 
 public partial class Ship : Node, IShip
 {
+    private readonly IEventSender _eventSender = EventBroker.Instance;
+
     private readonly CircleShape2D _colliderShape = new()
     {
         Radius = 75
@@ -38,6 +42,12 @@ public partial class Ship : Node, IShip
         set => _sprite.Texture = value;
     }
 
+    public Vector2 Position
+    {
+        get => _body.Position;
+        set => _body.Position = value;
+    }
+
     public override void _EnterTree()
     {
         var entityReference = new EntityReference { Entity = RootEntity };
@@ -60,8 +70,12 @@ public partial class Ship : Node, IShip
 
     public void FireProjectile()
     {
-        // todo
-        throw new NotImplementedException();
+        var projectile = new Projectile
+        {
+            Position = _body.GlobalPosition
+        };
+
+        _eventSender.Send(new SpawnBattleNodeEvent(projectile));
     }
 
     #endregion

@@ -1,5 +1,6 @@
-[gd_scene load_steps=4 format=3 uid="uid://bfse04nirndcg"]
+[gd_scene load_steps=5 format=3 uid="uid://bfse04nirndcg"]
 
+[ext_resource type="Script" uid="uid://cd4fpcsbbs612" path="res://Src/Entities/Battle/Battle.cs" id="1_2h7oj"]
 [ext_resource type="Script" uid="uid://cer7w66b71r6r" path="res://Src/Entities/Players/Player.cs" id="2_2h7oj"]
 [ext_resource type="Script" uid="uid://bd80nyixmxuxd" path="res://Src/Entities/Projectiles/Projectile.cs" id="2_vr6xi"]
 
@@ -7,6 +8,7 @@
 size = Vector2(29.51, 750)
 
 [node name="Battle" type="Node2D"]
+script = ExtResource("1_2h7oj")
 
 [node name="Wall" type="StaticBody2D" parent="."]
 position = Vector2(1020, 278)
@@ -19,6 +21,7 @@ position = Vector2(535, 554)
 script = ExtResource("2_vr6xi")
 metadata/_custom_type_script = "uid://bd80nyixmxuxd"
 
-[node name="Player" type="Node2D" parent="."]
+[node name="Player" type="Node" parent="."]
 script = ExtResource("2_2h7oj")
+Position = Vector2(100, 100)
 metadata/_custom_type_script = "uid://cer7w66b71r6r"
