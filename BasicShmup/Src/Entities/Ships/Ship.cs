@@ -9,6 +9,7 @@ namespace BasicShmup.Entities.Ships;
 public partial class Ship : Node, IShip
 {
     private readonly IEventSender _eventSender = EventBroker.Instance;
+    private readonly IShipState _state;
 
     private readonly CircleShape2D _colliderShape = new()
     {
@@ -48,6 +49,13 @@ public partial class Ship : Node, IShip
         set => _body.Position = value;
     }
 
+    public Ship()
+    {
+        var shipState = new ShipState();
+        _state = shipState;
+        AddChild(shipState);
+    }
+
     public override void _EnterTree()
     {
         var collisionShape = new CollisionShape2D { Shape = _colliderShape };
@@ -71,6 +79,11 @@ public partial class Ship : Node, IShip
 
     public void FireProjectile()
     {
+        if (!_state.CanFire)
+            return;
+
+        _state.SetFireCooldown();
+
         var projectile = new Projectile
         {
             Source = RootEntity,
