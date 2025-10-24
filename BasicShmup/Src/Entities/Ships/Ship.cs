@@ -50,11 +50,12 @@ public partial class Ship : Node, IShip
 
     public override void _EnterTree()
     {
-        var entityReference = new EntityReference { Entity = RootEntity };
         var collisionShape = new CollisionShape2D { Shape = _colliderShape };
-        collisionShape.AddChild(entityReference);
-
         _body.AddChild(collisionShape);
+
+        var entityReference = new EntityReference { Entity = RootEntity };
+        _body.AddChild(entityReference);
+
         _body.AddChild(_sprite);
 
         AddChild(_body);
@@ -72,6 +73,7 @@ public partial class Ship : Node, IShip
     {
         var projectile = new Projectile
         {
+            Source = RootEntity,
             Position = _body.GlobalPosition
         };
 

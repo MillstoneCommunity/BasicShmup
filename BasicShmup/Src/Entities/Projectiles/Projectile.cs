@@ -8,6 +8,8 @@ namespace BasicShmup.Entities.Projectiles;
 [GlobalClass]
 public partial class Projectile : Node2D
 {
+    public required IEntity Source { get; init; }
+
     public Projectile()
     {
         var area = CreateCollisionArea();
@@ -37,12 +39,15 @@ public partial class Projectile : Node2D
 
     private void HitBody(Node2D hitBody)
     {
-        QueueFree();
-
         var hitEntity = hitBody
             .GetChildren<EntityReference>()
             .FirstOrDefault()
             ?.Entity;
+
+        if (hitEntity == Source)
+            return;
+
+        QueueFree();
 
         if (hitEntity is not IEventHandler<ProjectileHitEvent> eventHandler)
             return;

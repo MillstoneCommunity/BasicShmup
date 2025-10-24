@@ -11,6 +11,7 @@ public partial class Player : Node, IEntity, IEventHandler<ProjectileHitEvent>
 {
     private readonly Ship _ship;
 
+    // todo fix default values for exported fields
     [Export]
     private Vector2 Position
     {
@@ -33,7 +34,8 @@ public partial class Player : Node, IEntity, IEventHandler<ProjectileHitEvent>
     }
 
     [Export]
-    private Texture2D Texture {
+    private Texture2D Texture
+    {
         get => _ship.Texture;
         set => _ship.Texture = value;
     }

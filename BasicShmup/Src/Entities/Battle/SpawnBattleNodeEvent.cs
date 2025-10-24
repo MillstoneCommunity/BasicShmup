@@ -2,4 +2,4 @@
 
 namespace BasicShmup.Entities.Battle;
 
-public record SpawnBattleNodeEvent(Node node);
+public record SpawnBattleNodeEvent(Node Node);
