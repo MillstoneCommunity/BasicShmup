@@ -1,8 +1,11 @@
 [gd_resource type="Resource" script_class="ProjectileConfiguration" load_steps=3 format=3 uid="uid://ctkgmulg37pfy"]
 
-[ext_resource type="Texture2D" uid="uid://ccg507d56njlu" path="res://Resources/ErrorTexture.png" id="1_vqjco"]
+[ext_resource type="Texture2D" uid="uid://057mtriort60" path="res://Resources/Projectile.png" id="1_vqjco"]
 [ext_resource type="Script" uid="uid://cqvdry3dfmvnk" path="res://Src/Entities/Projectiles/ProjectileConfiguration.cs" id="2_xx3o4"]
 
 [resource]
 script = ExtResource("2_xx3o4")
+ColliderRadius = 16.0
+Texture = ExtResource("1_vqjco")
+TextureScaling = 2
 metadata/_custom_type_script = "uid://cqvdry3dfmvnk"

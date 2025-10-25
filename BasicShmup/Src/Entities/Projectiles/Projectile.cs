@@ -18,14 +18,16 @@ public partial class Projectile : Node2D
 
     public override void _Ready()
     {
-        var sprite = new Sprite2D
-        {
-            Texture = _projectileConfiguration.Texture
-        };
-        AddChild(sprite);
-
         var area = CreateCollisionArea();
         AddChild(area);
+
+        var sprite = new Sprite2D
+        {
+            TextureFilter = TextureFilterEnum.Nearest,
+            Texture = _projectileConfiguration.Texture,
+            Scale = new Vector2(_projectileConfiguration.TextureScaling, _projectileConfiguration.TextureScaling)
+        };
+        AddChild(sprite);
 
         var projectileController = new ProjectileController
         {
@@ -42,9 +44,8 @@ public partial class Projectile : Node2D
         {
             Shape = new CircleShape2D
             {
-                Radius = 10
-            },
-            DebugColor = new Color(Colors.Red, .5f)
+                Radius = _projectileConfiguration.ColliderRadius
+            }
         };
 
         var area = new Area2D
