@@ -5,7 +5,7 @@ namespace BasicShmup.Entities.Ships;
 
 public partial class ShipState : Node, IShipState
 {
-    private static readonly TimeSpan FiringCooldown = TimeSpan.FromSeconds(0.5f);
+    private static readonly TimeSpan FiringCooldown = TimeSpan.FromSeconds(0.1f);
 
     private TimeSpan _remainingFiringCooldown = TimeSpan.Zero;
 

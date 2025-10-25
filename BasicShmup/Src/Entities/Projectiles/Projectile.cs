@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using BasicShmup.Dynamics;
 using BasicShmup.Events;
 using BasicShmup.Extensions;
 using Godot;
@@ -8,12 +9,22 @@ namespace BasicShmup.Entities.Projectiles;
 [GlobalClass]
 public partial class Projectile : Node2D
 {
+    private readonly Speed _speed = 1400;
     public required IEntity Source { get; init; }
+    public required Direction MovementDirection { get; init; }
 
-    public Projectile()
+    public override void _EnterTree()
     {
         var area = CreateCollisionArea();
         AddChild(area);
+
+        var projectileController = new ProjectileController
+        {
+            MovementRoot = this,
+            MovementDirection = MovementDirection,
+            Speed = _speed
+        };
+        AddChild(projectileController);
     }
 
     private Node CreateCollisionArea()
@@ -22,7 +33,7 @@ public partial class Projectile : Node2D
         {
             Shape = new CircleShape2D
             {
-                Radius = 50
+                Radius = 10
             },
             DebugColor = new Color(Colors.Red, .5f)
         };

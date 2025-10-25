@@ -87,7 +87,8 @@ public partial class Ship : Node, IShip
         var projectile = new Projectile
         {
             Source = RootEntity,
-            Position = _body.GlobalPosition
+            Position = _body.GlobalPosition,
+            MovementDirection = Direction.Right
         };
 
         _eventSender.Send(new SpawnBattleNodeEvent(projectile));
