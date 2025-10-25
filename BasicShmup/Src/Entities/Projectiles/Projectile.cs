@@ -10,11 +10,18 @@ namespace BasicShmup.Entities.Projectiles;
 public partial class Projectile : Node2D
 {
     private readonly Speed _speed = 1400;
+    private readonly Texture2D _texture = ResourceLoader.Load<Texture2D>("res://Resources/ErrorTexture.png");
     public required IEntity Source { get; init; }
     public required Direction MovementDirection { get; init; }
 
     public override void _EnterTree()
     {
+        var sprite = new Sprite2D
+        {
+            Texture = _texture
+        };
+        AddChild(sprite);
+
         var area = CreateCollisionArea();
         AddChild(area);
 
