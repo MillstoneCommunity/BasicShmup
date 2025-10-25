@@ -1,6 +1,6 @@
 ﻿namespace BasicShmup.Events;
 
-internal interface IEventHandler<in TEvent>
+public interface IEventHandler<in TEvent>
 {
     void Handle(TEvent @event);
 }

@@ -1,10 +1,11 @@
-﻿using Godot;
+﻿using System;
 
 namespace BasicShmup.Dynamics;
 
-public record struct Speed(float Value)
+public record struct Speed(float FloatValue)
 {
-    public static implicit operator Speed(float speedValue) => new(speedValue);
+    public static implicit operator Speed(float speed) => new(speed);
 
-    public static Vector2 operator *(Speed speed, Vector2 vector) => speed.Value * vector;
+    public static Velocity operator *(Speed speed, Direction direction) => speed.FloatValue * direction.VectorValue;
+    public static Length operator *(Speed speed, TimeSpan timeSpan) => speed.FloatValue * (float)timeSpan.TotalSeconds;
 }

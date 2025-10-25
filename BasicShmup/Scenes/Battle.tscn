@@ -1,16 +1,14 @@
-[gd_scene load_steps=4 format=3 uid="uid://bfse04nirndcg"]
+[gd_scene load_steps=5 format=3 uid="uid://bfse04nirndcg"]
 
+[ext_resource type="Script" uid="uid://cd4fpcsbbs612" path="res://Src/Entities/Battle/Battle.cs" id="1_2h7oj"]
+[ext_resource type="Script" uid="uid://cer7w66b71r6r" path="res://Src/Entities/Players/Player.cs" id="2_2h7oj"]
 [ext_resource type="Script" uid="uid://bd80nyixmxuxd" path="res://Src/Entities/Projectiles/Projectile.cs" id="2_vr6xi"]
-[ext_resource type="Script" uid="uid://bpsxhv1d16ykv" path="res://Src/Entities/Ships/Player.cs" id="4_1samx"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wvl2i"]
 size = Vector2(29.51, 750)
 
 [node name="Battle" type="Node2D"]
-
-[node name="Player" type="Node2D" parent="."]
-script = ExtResource("4_1samx")
-metadata/_custom_type_script = "uid://bpsxhv1d16ykv"
+script = ExtResource("1_2h7oj")
 
 [node name="Wall" type="StaticBody2D" parent="."]
 position = Vector2(1020, 278)
@@ -22,3 +20,8 @@ shape = SubResource("RectangleShape2D_wvl2i")
 position = Vector2(535, 554)
 script = ExtResource("2_vr6xi")
 metadata/_custom_type_script = "uid://bd80nyixmxuxd"
+
+[node name="Player" type="Node" parent="."]
+script = ExtResource("2_2h7oj")
+Position = Vector2(97.93, 98.45)
+metadata/_custom_type_script = "uid://cer7w66b71r6r"
