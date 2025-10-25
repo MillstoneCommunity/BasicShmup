@@ -1,8 +1,11 @@
 [gd_resource type="Resource" script_class="ShipConfiguration" load_steps=3 format=3 uid="uid://c2sobnbexhjyf"]
 
-[ext_resource type="Texture2D" uid="uid://ccg507d56njlu" path="res://Resources/ErrorTexture.png" id="1_wd3bm"]
+[ext_resource type="Texture2D" uid="uid://b1aufsshs6jrv" path="res://Resources/Ship.png" id="1_wd3bm"]
 [ext_resource type="Script" uid="uid://btjwap0p8jwu8" path="res://Src/Entities/Ships/ShipConfiguration.cs" id="2_k8mob"]
 
 [resource]
 script = ExtResource("2_k8mob")
+ColliderRadius = 32.0
+Texture = ExtResource("1_wd3bm")
+TextureScaling = 4
 metadata/_custom_type_script = "uid://btjwap0p8jwu8"

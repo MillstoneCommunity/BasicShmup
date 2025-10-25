@@ -10,7 +10,7 @@ namespace BasicShmup.Entities.Projectiles;
 public partial class ProjectileConfiguration : Resource, IConfiguration, IProjectileConfiguration
 {
     [Export]
-    private float _speed = 1400;
+    private float _speed = 1280;
 
     public Speed Speed => _speed;
 

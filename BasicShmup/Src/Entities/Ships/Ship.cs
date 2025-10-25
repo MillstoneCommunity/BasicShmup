@@ -52,6 +52,7 @@ public partial class Ship : Node, IShip
         var sprite = new Sprite2D
         {
             Texture = _shipConfiguration.Texture,
+            Scale = new Vector2(_shipConfiguration.TextureScaling, _shipConfiguration.TextureScaling),
             TextureFilter = CanvasItem.TextureFilterEnum.Nearest
         };
         _body.AddChild(sprite);

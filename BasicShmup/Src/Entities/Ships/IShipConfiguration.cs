@@ -8,4 +8,5 @@ public interface IShipConfiguration
     public Speed Speed { get; }
     public float ColliderRadius { get; }
     public Texture2D Texture { get; }
+    public int TextureScaling { get; }
 }
