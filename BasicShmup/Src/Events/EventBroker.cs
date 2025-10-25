@@ -6,13 +6,7 @@ namespace BasicShmup.Events;
 
 public class EventBroker : IEventSender, IEventReceiver
 {
-    public static EventBroker Instance { get; } = new();
-
     private readonly Dictionary<Type, List<object>> _eventHandlers = new();
-
-    private EventBroker()
-    {
-    }
 
     public void RegisterEventHandler<TEvent>(IEventHandler<TEvent> eventHandler)
     {

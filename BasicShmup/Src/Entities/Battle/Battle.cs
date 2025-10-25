@@ -1,4 +1,5 @@
 ﻿using BasicShmup.Events;
+using BasicShmup.ServiceProviders;
 using Godot;
 
 namespace BasicShmup.Entities.Battle;
@@ -6,9 +7,10 @@ namespace BasicShmup.Entities.Battle;
 [GlobalClass]
 public partial class Battle : Node, IEventHandler<SpawnBattleNodeEvent>
 {
-    private readonly IEventReceiver _eventReceiver = EventBroker.Instance;
+    [Inject]
+    private readonly IEventReceiver _eventReceiver = null!;
 
-    public override void _EnterTree()
+    public override void _Ready()
     {
         _eventReceiver.RegisterEventHandler(this);
     }

@@ -2,13 +2,15 @@
 using BasicShmup.Entities.Battle;
 using BasicShmup.Entities.Projectiles;
 using BasicShmup.Events;
+using BasicShmup.ServiceProviders;
 using Godot;
 
 namespace BasicShmup.Entities.Ships;
 
 public partial class Ship : Node, IShip
 {
-    private readonly IEventSender _eventSender = EventBroker.Instance;
+    [Inject]
+    private readonly IEventSender _eventSender = null!;
     private readonly IShipState _state;
 
     private readonly CircleShape2D _colliderShape = new()
