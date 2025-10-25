@@ -2,6 +2,7 @@
 using BasicShmup.Dynamics;
 using BasicShmup.Events;
 using BasicShmup.Extensions;
+using BasicShmup.ServiceProviders;
 using Godot;
 
 namespace BasicShmup.Entities.Projectiles;
@@ -9,16 +10,17 @@ namespace BasicShmup.Entities.Projectiles;
 [GlobalClass]
 public partial class Projectile : Node2D
 {
-    private readonly Speed _speed = 1400;
-    private readonly Texture2D _texture = ResourceLoader.Load<Texture2D>("res://Resources/ErrorTexture.png");
+    [Inject]
+    private readonly IProjectileConfiguration _projectileConfiguration = null!;
+
     public required IEntity Source { get; init; }
     public required Direction MovementDirection { get; init; }
 
-    public override void _EnterTree()
+    public override void _Ready()
     {
         var sprite = new Sprite2D
         {
-            Texture = _texture
+            Texture = _projectileConfiguration.Texture
         };
         AddChild(sprite);
 
@@ -29,7 +31,7 @@ public partial class Projectile : Node2D
         {
             MovementRoot = this,
             MovementDirection = MovementDirection,
-            Speed = _speed
+            Speed = _projectileConfiguration.Speed
         };
         AddChild(projectileController);
     }
