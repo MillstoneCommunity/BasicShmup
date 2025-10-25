@@ -11,39 +11,18 @@ public partial class Ship : Node, IShip
 {
     [Inject]
     private readonly IEventSender _eventSender = null!;
-    private readonly IShipState _state;
 
-    private readonly CircleShape2D _colliderShape = new()
-    {
-        Radius = 75
-    };
+    [Inject]
+    private readonly IShipConfiguration _shipConfiguration = null!;
+
+    private readonly IShipState _state;
 
     private readonly CharacterBody2D _body = new()
     {
         MotionMode = CharacterBody2D.MotionModeEnum.Floating
     };
 
-    private readonly Sprite2D _sprite = new()
-    {
-        Texture = ResourceLoader.Load<Texture2D>("res://Resources/ErrorTexture.png"),
-        TextureFilter = CanvasItem.TextureFilterEnum.Nearest
-    };
-
     public required IEntity RootEntity { get; init; }
-
-    public Speed Speed { get; set; } = 750;
-
-    public float Radius
-    {
-        get => _colliderShape.Radius;
-        set => _colliderShape.Radius = value;
-    }
-
-    public Texture2D Texture
-    {
-        get => _sprite.Texture;
-        set => _sprite.Texture = value;
-    }
 
     public Vector2 Position
     {
@@ -58,15 +37,24 @@ public partial class Ship : Node, IShip
         AddChild(shipState);
     }
 
-    public override void _EnterTree()
+    public override void _Ready()
     {
-        var collisionShape = new CollisionShape2D { Shape = _colliderShape };
+        var colliderShape = new CircleShape2D
+        {
+            Radius = _shipConfiguration.ColliderRadius
+        };
+        var collisionShape = new CollisionShape2D { Shape = colliderShape };
         _body.AddChild(collisionShape);
 
         var entityReference = new EntityReference { Entity = RootEntity };
         _body.AddChild(entityReference);
 
-        _body.AddChild(_sprite);
+        var sprite = new Sprite2D
+        {
+            Texture = _shipConfiguration.Texture,
+            TextureFilter = CanvasItem.TextureFilterEnum.Nearest
+        };
+        _body.AddChild(sprite);
 
         AddChild(_body);
     }
@@ -75,7 +63,8 @@ public partial class Ship : Node, IShip
 
     public void Move(Direction movementDirection)
     {
-        _body.Velocity = (Speed * movementDirection).VectorValue;
+        var speed = _shipConfiguration.Speed;
+        _body.Velocity = (speed * movementDirection).VectorValue;
         _body.MoveAndSlide();
     }
 

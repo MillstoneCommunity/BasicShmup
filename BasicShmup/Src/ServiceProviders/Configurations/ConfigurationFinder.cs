@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using Godot;
 
 namespace BasicShmup.ServiceProviders.Configurations;
@@ -7,6 +8,7 @@ namespace BasicShmup.ServiceProviders.Configurations;
 public class ConfigurationFinder
 {
     private static readonly HashSet<string> IgnoredConfigurationDirectories = ["res://.godot/", "res://Src/"];
+    private static readonly List<string> ConfigurationFileNameSuffixes = [".config.tres"];
 
     public IEnumerable<IConfiguration> GetConfigurations()
     {
@@ -39,10 +41,16 @@ public class ConfigurationFinder
 
                 if (IsDirectory(subPath))
                     directories.Enqueue(path);
-                else
+
+                if (HasAcceptedSuffix(path))
                     yield return path;
             }
         }
+    }
+
+    private static bool HasAcceptedSuffix(string path)
+    {
+        return ConfigurationFileNameSuffixes.Any(path.EndsWith);
     }
 
     private static bool IsDirectory(ResourcePath path) => path.Path.EndsWith('/');

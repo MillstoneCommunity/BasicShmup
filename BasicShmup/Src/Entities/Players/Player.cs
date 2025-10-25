@@ -18,27 +18,6 @@ public partial class Player : Node, IEntity, IEventHandler<ProjectileHitEvent>
         set => _ship.Position = value;
     }
 
-    [Export]
-    private float Speed
-    {
-        get => _ship.Speed.FloatValue;
-        set => _ship.Speed = value;
-    }
-
-    [Export]
-    private float Radius
-    {
-        get => _ship.Radius;
-        set => _ship.Radius = value;
-    }
-
-    [Export]
-    private Texture2D Texture
-    {
-        get => _ship.Texture;
-        set => _ship.Texture = value;
-    }
-
     public Player()
     {
         _ship = new Ship
