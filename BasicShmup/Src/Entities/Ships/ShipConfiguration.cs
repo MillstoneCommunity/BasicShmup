@@ -10,16 +10,19 @@ namespace BasicShmup.Entities.Ships;
 public partial class ShipConfiguration : Resource, IConfiguration, IShipConfiguration
 {
     [Export]
-    private float _speed = 750;
+    private float _speed = 640;
 
     public Speed Speed => _speed;
 
     [Export]
-    public float ColliderRadius { get; set; } = 75;
+    public float ColliderRadius { get; set; } = 64;
 
     [Export]
     [Required]
     public Texture2D Texture { get; set; } = ResourceLoader.Load<Texture2D>("res://Resources/ErrorTexture.png");
+
+    [Export]
+    public int TextureScaling { get; set; } = 1;
 
     public void Register(IServiceCollection serviceCollection)
     {
