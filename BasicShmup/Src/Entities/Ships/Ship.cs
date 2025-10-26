@@ -35,7 +35,10 @@ public partial class Ship : Node, IShip
 
     public Ship()
     {
-        var shipState = new ShipState();
+        var shipState = new ShipState
+        {
+            Health = _shipConfiguration.Health
+        };
         _state = shipState;
         AddChild(shipState);
     }

@@ -8,7 +8,12 @@ public partial class ShipState : Node, IShipState
     private static readonly TimeSpan FiringCooldown = TimeSpan.FromSeconds(0.1f);
 
     private TimeSpan _remainingFiringCooldown = TimeSpan.Zero;
-    private Health _health = 3;
+    private Health _health;
+
+    public required Health Health
+    {
+        init => _health = value;
+    }
 
     #region IShipState
 
