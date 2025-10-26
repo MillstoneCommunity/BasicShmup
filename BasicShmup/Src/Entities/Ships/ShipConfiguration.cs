@@ -22,7 +22,7 @@ public partial class ShipConfiguration : Resource, IConfiguration, IShipConfigur
     public Texture2D Texture { get; set; } = ResourceLoader.Load<Texture2D>("res://Resources/ErrorTexture.png");
 
     [Export]
-    public int TextureScaling { get; set; } = 1;
+    public float TextureScaling { get; set; } = 1;
 
     public void Register(IServiceCollection serviceCollection)
     {
