@@ -8,13 +8,24 @@ public partial class ShipState : Node, IShipState
     private static readonly TimeSpan FiringCooldown = TimeSpan.FromSeconds(0.1f);
 
     private TimeSpan _remainingFiringCooldown = TimeSpan.Zero;
+    private Health _health = 3;
+
+    #region IShipState
 
     public bool CanFire => _remainingFiringCooldown == TimeSpan.Zero;
+    public bool IsDead => _health == 0;
 
     public void SetFireCooldown()
     {
         _remainingFiringCooldown = FiringCooldown;
     }
+
+    public void TakeDamage(Damage damage)
+    {
+        _health -= damage;
+    }
+
+    #endregion
 
     public override void _Process(double delta)
     {

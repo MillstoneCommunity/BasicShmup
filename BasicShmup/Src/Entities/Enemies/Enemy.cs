@@ -1,10 +1,12 @@
-﻿using BasicShmup.Entities.Ships;
+﻿using BasicShmup.Entities.Projectiles;
+using BasicShmup.Entities.Ships;
+using BasicShmup.Events;
 using Godot;
 
 namespace BasicShmup.Entities.Enemies;
 
 [GlobalClass]
-public partial class Enemy : Node, IEntity
+public partial class Enemy : Node, IEntity, IEventHandler<ProjectileHitEvent>
 {
     private readonly Ship _ship;
 
@@ -28,5 +30,13 @@ public partial class Enemy : Node, IEntity
             Ship = _ship
         };
         AddChild(controller);
+    }
+
+    public void Handle(ProjectileHitEvent projectileHitEvent)
+    {
+        _ship.TakeDamage(1);
+
+        if (_ship.IsDead)
+            QueueFree();
     }
 }

@@ -31,6 +31,8 @@ public partial class Ship : Node, IShip
         set => _body.Position = value;
     }
 
+    public bool IsDead => _state.IsDead;
+
     public Ship()
     {
         var shipState = new ShipState();
@@ -85,6 +87,11 @@ public partial class Ship : Node, IShip
         };
 
         _eventSender.Send(new SpawnBattleNodeEvent(projectile));
+    }
+
+    public void TakeDamage(Damage damage)
+    {
+        _state.TakeDamage(damage);
     }
 
     #endregion
