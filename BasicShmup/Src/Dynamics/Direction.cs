@@ -8,6 +8,7 @@ public readonly record struct Direction()
     private const float Tolerance = FloatConstants.Tolerance;
 
     public static readonly Direction Right = new(Vector2.Right);
+    public static readonly Direction Left = new(Vector2.Left);
 
     public Vector2 VectorValue { get; }
 

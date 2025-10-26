@@ -2,6 +2,7 @@
 using BasicShmup.Entities.Battle;
 using BasicShmup.Entities.Projectiles;
 using BasicShmup.Events;
+using BasicShmup.Extensions;
 using BasicShmup.ServiceProviders;
 using Godot;
 
@@ -52,7 +53,7 @@ public partial class Ship : Node, IShip
         var sprite = new Sprite2D
         {
             Texture = _shipConfiguration.Texture,
-            Scale = new Vector2(_shipConfiguration.TextureScaling, _shipConfiguration.TextureScaling),
+            Scale = _shipConfiguration.TextureScaling.AsUniformVector(),
             TextureFilter = CanvasItem.TextureFilterEnum.Nearest
         };
         _body.AddChild(sprite);

@@ -25,7 +25,7 @@ public partial class Projectile : Node2D
         {
             TextureFilter = TextureFilterEnum.Nearest,
             Texture = _projectileConfiguration.Texture,
-            Scale = new Vector2(_projectileConfiguration.TextureScaling, _projectileConfiguration.TextureScaling)
+            Scale = _projectileConfiguration.TextureScaling.AsUniformVector()
         };
         AddChild(sprite);
 
