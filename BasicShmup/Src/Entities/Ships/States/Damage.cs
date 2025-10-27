@@ -1,4 +1,4 @@
-﻿namespace BasicShmup.Entities.Ships;
+﻿namespace BasicShmup.Entities.Ships.States;
 
 public readonly record struct Damage(int Amount)
 {

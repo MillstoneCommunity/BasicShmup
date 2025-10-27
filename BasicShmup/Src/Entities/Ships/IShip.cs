@@ -1,4 +1,5 @@
 ﻿using BasicShmup.Dynamics;
+using BasicShmup.Entities.Ships.States;
 
 namespace BasicShmup.Entities.Ships;
 

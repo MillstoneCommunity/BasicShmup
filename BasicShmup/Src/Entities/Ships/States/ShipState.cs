@@ -1,7 +1,7 @@
 ﻿using System;
 using Godot;
 
-namespace BasicShmup.Entities.Ships;
+namespace BasicShmup.Entities.Ships.States;
 
 public partial class ShipState : Node, IShipState
 {

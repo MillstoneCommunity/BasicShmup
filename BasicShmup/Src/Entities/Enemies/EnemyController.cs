@@ -6,7 +6,7 @@ namespace BasicShmup.Entities.Enemies;
 
 public partial class EnemyController : Node
 {
-    public required Ship Ship { get; init; }
+    public required IShip Ship { get; init; }
 
     public override void _PhysicsProcess(double delta)
     {

@@ -1,6 +1,7 @@
 ﻿using BasicShmup.Dynamics;
 using BasicShmup.Entities.Battle;
 using BasicShmup.Entities.Projectiles;
+using BasicShmup.Entities.Ships.States;
 using BasicShmup.Events;
 using BasicShmup.Extensions;
 using BasicShmup.ServiceProviders;
@@ -35,7 +36,7 @@ public partial class Ship : Node, IShip
 
     public override void _Ready()
     {
-        var shipState = new ShipState
+        var shipState = new States.ShipState
         {
             Health = _shipConfiguration.Health
         };

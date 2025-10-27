@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace BasicShmup.Entities.Ships;
+namespace BasicShmup.Entities.Ships.States;
 
 public readonly record struct Health(int Amount)
 {

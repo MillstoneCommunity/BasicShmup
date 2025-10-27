@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using BasicShmup.Dynamics;
+using BasicShmup.Entities.Ships.States;
 using BasicShmup.ServiceProviders.Configurations;
 using Godot;
 using Microsoft.Extensions.DependencyInjection;
