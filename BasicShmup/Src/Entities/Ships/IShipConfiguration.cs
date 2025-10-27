@@ -11,4 +11,5 @@ public interface IShipConfiguration
     Speed Speed { get; }
     float ColliderRadius { get; }
     Health Health { get; }
+    Damage DamageOnCollision { get; }
 }

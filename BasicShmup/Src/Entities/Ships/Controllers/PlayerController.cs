@@ -1,10 +1,11 @@
 ﻿using BasicShmup.Dynamics;
+using BasicShmup.Events;
 using BasicShmup.Input;
 using Godot;
 
 namespace BasicShmup.Entities.Ships.Controllers;
 
-public partial class PlayerController : Node2D, IController
+public partial class PlayerController : Node2D, IController, IEventHandler<ShipCollisionEvent>
 {
     private CharacterBody2D _body = new()
     {
@@ -48,5 +49,10 @@ public partial class PlayerController : Node2D, IController
         _collisionShape.Disabled = true;
 
         Ship.Position += new Displacement(_body.Position);
+    }
+
+    public void Handle(ShipCollisionEvent shipCollisionEvent)
+    {
+        Ship.TakeDamage(shipCollisionEvent.Damage);
     }
 }

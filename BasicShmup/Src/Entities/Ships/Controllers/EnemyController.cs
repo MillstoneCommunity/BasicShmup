@@ -6,7 +6,7 @@ using Godot;
 
 namespace BasicShmup.Entities.Ships.Controllers;
 
-public partial class EnemyController : Node, IController, IEventHandler<ProjectileHitEvent>
+public partial class EnemyController : Node, IController, IEventHandler<ProjectileCollisionEvent>
 {
     public required IShip Ship { get; init; }
     public required IShipConfiguration ShipConfiguration { get; init; }
@@ -17,8 +17,8 @@ public partial class EnemyController : Node, IController, IEventHandler<Projecti
         Ship.Position += ShipConfiguration.Speed * deltaTime * Direction.Left;
     }
 
-    public void Handle(ProjectileHitEvent projectileHitEvent)
+    public void Handle(ProjectileCollisionEvent projectileCollisionEvent)
     {
-        Ship.TakeDamage(projectileHitEvent.Damage);
+        Ship.TakeDamage(projectileCollisionEvent.Damage);
     }
 }

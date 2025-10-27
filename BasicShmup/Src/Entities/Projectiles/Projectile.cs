@@ -14,7 +14,7 @@ public partial class Projectile : Node2D
     [Inject]
     private readonly IProjectileConfiguration _projectileConfiguration = null!;
 
-    public required IController Source { get; init; }
+    public required IController SourceController { get; init; }
     public required Direction MovementDirection { get; init; }
 
     public override void _Ready()
@@ -54,27 +54,27 @@ public partial class Projectile : Node2D
             Monitoring = true
         };
         area.AddChild(collisionShape);
-        area.AreaEntered += AreaEntered;
+        area.AreaEntered += CollideWith;
 
         return area;
     }
 
-    private void AreaEntered(Node2D hitBody)
+    private void CollideWith(Node2D hitNode)
     {
-        var hitEntity = hitBody
-            .GetChildren<Ships.Controllers.ControllerReference>()
+        var hitController = hitNode
+            .GetChildren<ControllerReference>()
             .FirstOrDefault()
-            ?.Entity;
+            ?.Controller;
 
-        if (hitEntity == Source)
+        if (hitController == SourceController)
             return;
 
         QueueFree();
 
-        if (hitEntity is not IEventHandler<ProjectileHitEvent> eventHandler)
+        if (hitController is not IEventHandler<ProjectileCollisionEvent> eventHandler)
             return;
 
         var damage = _projectileConfiguration.Damage;
-        eventHandler.Handle(new ProjectileHitEvent(damage));
+        eventHandler.Handle(new ProjectileCollisionEvent(damage));
     }
 }

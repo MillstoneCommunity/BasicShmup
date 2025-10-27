@@ -28,6 +28,10 @@ public partial class ShipConfiguration : Resource, IConfiguration, IShipConfigur
     private int _health = 3;
     public Health Health => _health;
 
+    [Export]
+    private int _damageOnCollision = 1;
+    public Damage DamageOnCollision => _damageOnCollision;
+
     public void Register(IServiceCollection serviceCollection)
     {
         serviceCollection.AddSingleton<IShipConfiguration>(this);

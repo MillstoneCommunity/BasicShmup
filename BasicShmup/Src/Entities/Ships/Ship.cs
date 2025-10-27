@@ -1,4 +1,5 @@
-﻿using BasicShmup.Dynamics;
+﻿using System.Linq;
+using BasicShmup.Dynamics;
 using BasicShmup.Entities.Battle;
 using BasicShmup.Entities.Projectiles;
 using BasicShmup.Entities.Ships.Controllers;
@@ -57,9 +58,10 @@ public partial class Ship : Node2D, IShip
         return shipState;
     }
 
-    private static Node CreateCollider(IShipConfiguration shipConfiguration, IController controller)
+    private Node CreateCollider(IShipConfiguration shipConfiguration, IController controller)
     {
         var colliderArea = new Area2D();
+        colliderArea.AreaEntered += CollideWith;
 
         var colliderShape = new CircleShape2D
         {
@@ -68,10 +70,26 @@ public partial class Ship : Node2D, IShip
         var collisionShape = new CollisionShape2D { Shape = colliderShape };
         colliderArea.AddChild(collisionShape);
 
-        var entityReference = new ControllerReference { Entity = controller };
+        var entityReference = new ControllerReference { Controller = controller };
         colliderArea.AddChild(entityReference);
 
         return colliderArea;
+    }
+
+    private void CollideWith(Node2D hitNode)
+    {
+        var hitController = hitNode
+            .GetChildren<ControllerReference>()
+            .FirstOrDefault()
+            ?.Controller;
+
+        if (hitController == _controller)
+            return;
+
+        if (hitController is not IEventHandler<ShipCollisionEvent> eventHandler)
+            return;
+
+        eventHandler.Handle(new ShipCollisionEvent(_shipConfiguration.DamageOnCollision));
     }
 
     private static Node CreateSprite(IShipConfiguration shipConfiguration)
@@ -120,7 +138,7 @@ public partial class Ship : Node2D, IShip
 
         var projectile = new Projectile
         {
-            Source = _controller,
+            SourceController = _controller,
             Position = GlobalPosition,
             MovementDirection = Direction.Right
         };

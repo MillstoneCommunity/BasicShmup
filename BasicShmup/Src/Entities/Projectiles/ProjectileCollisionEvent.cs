@@ -2,4 +2,4 @@
 
 namespace BasicShmup.Entities.Projectiles;
 
-public record ProjectileHitEvent(Damage Damage);
+public record ProjectileCollisionEvent(Damage Damage);
