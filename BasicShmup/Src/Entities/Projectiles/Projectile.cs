@@ -73,6 +73,7 @@ public partial class Projectile : Node2D
         if (hitEntity is not IEventHandler<ProjectileHitEvent> eventHandler)
             return;
 
-        eventHandler.Handle(new ProjectileHitEvent());
+        var damage = _projectileConfiguration.Damage;
+        eventHandler.Handle(new ProjectileHitEvent(damage));
     }
 }

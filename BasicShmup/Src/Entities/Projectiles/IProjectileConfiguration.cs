@@ -1,12 +1,14 @@
 ﻿using BasicShmup.Dynamics;
+using BasicShmup.Entities.Ships;
 using Godot;
 
 namespace BasicShmup.Entities.Projectiles;
 
 public interface IProjectileConfiguration
 {
-    public Speed Speed { get; }
-    public float ColliderRadius { get; }
-    public Texture2D Texture { get; }
-    public float TextureScaling { get; }
+    Texture2D Texture { get; }
+    float TextureScaling { get; }
+    float ColliderRadius { get; }
+    Speed Speed { get; }
+    Damage Damage { get; }
 }

@@ -1,3 +1,5 @@
-﻿namespace BasicShmup.Entities.Projectiles;
+﻿using BasicShmup.Entities.Ships;
 
-public record ProjectileHitEvent;
+namespace BasicShmup.Entities.Projectiles;
+
+public record ProjectileHitEvent(Damage Damage);

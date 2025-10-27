@@ -16,12 +16,12 @@ public partial class Ship : Node, IShip
     [Inject]
     private readonly IShipConfiguration _shipConfiguration = null!;
 
-    private readonly IShipState _state;
-
     private readonly CharacterBody2D _body = new()
     {
         MotionMode = CharacterBody2D.MotionModeEnum.Floating
     };
+
+    private IShipState _state = null!;
 
     public required IEntity RootEntity { get; init; }
 
@@ -33,7 +33,7 @@ public partial class Ship : Node, IShip
 
     public bool IsDead => _state.IsDead;
 
-    public Ship()
+    public override void _Ready()
     {
         var shipState = new ShipState
         {
@@ -41,10 +41,7 @@ public partial class Ship : Node, IShip
         };
         _state = shipState;
         AddChild(shipState);
-    }
 
-    public override void _Ready()
-    {
         var colliderShape = new CircleShape2D
         {
             Radius = _shipConfiguration.ColliderRadius

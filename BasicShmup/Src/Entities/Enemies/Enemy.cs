@@ -34,7 +34,7 @@ public partial class Enemy : Node, IEntity, IEventHandler<ProjectileHitEvent>
 
     public void Handle(ProjectileHitEvent projectileHitEvent)
     {
-        _ship.TakeDamage(1);
+        _ship.TakeDamage(projectileHitEvent.Damage);
 
         if (_ship.IsDead)
             QueueFree();
