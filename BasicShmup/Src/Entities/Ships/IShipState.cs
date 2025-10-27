@@ -2,6 +2,8 @@
 
 public interface IShipState
 {
-    public bool CanFire { get; }
-    public void SetFireCooldown();
+    bool CanFire { get; }
+    public bool IsDead { get; }
+    void SetFireCooldown();
+    void TakeDamage(Damage damage);
 }

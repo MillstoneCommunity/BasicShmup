@@ -6,4 +6,5 @@ public interface IShip
 {
     void Move(Direction movementDirection);
     void FireProjectile();
+    void TakeDamage(Damage damage);
 }

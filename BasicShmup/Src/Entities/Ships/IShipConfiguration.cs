@@ -5,8 +5,9 @@ namespace BasicShmup.Entities.Ships;
 
 public interface IShipConfiguration
 {
-    public Speed Speed { get; }
-    public float ColliderRadius { get; }
-    public Texture2D Texture { get; }
-    public float TextureScaling { get; }
+    Texture2D Texture { get; }
+    float TextureScaling { get; }
+    Speed Speed { get; }
+    float ColliderRadius { get; }
+    Health Health { get; }
 }
