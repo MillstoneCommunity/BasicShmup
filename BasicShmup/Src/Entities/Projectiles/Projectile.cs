@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using BasicShmup.Dynamics;
+using BasicShmup.Entities.Ships.Controllers;
 using BasicShmup.Events;
 using BasicShmup.Extensions;
 using BasicShmup.ServiceProviders;
@@ -13,7 +14,7 @@ public partial class Projectile : Node2D
     [Inject]
     private readonly IProjectileConfiguration _projectileConfiguration = null!;
 
-    public required IEntity Source { get; init; }
+    public required IController Source { get; init; }
     public required Direction MovementDirection { get; init; }
 
     public override void _Ready()
@@ -61,7 +62,7 @@ public partial class Projectile : Node2D
     private void AreaEntered(Node2D hitBody)
     {
         var hitEntity = hitBody
-            .GetChildren<EntityReference>()
+            .GetChildren<Ships.Controllers.ControllerReference>()
             .FirstOrDefault()
             ?.Entity;
 

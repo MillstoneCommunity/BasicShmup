@@ -1,16 +1,11 @@
-﻿using BasicShmup.Entities.Ships;
+﻿using BasicShmup.Dynamics;
 using BasicShmup.Input;
-using BasicShmup.ServiceProviders;
 using Godot;
 
-namespace BasicShmup.Entities.Players.Controllers;
+namespace BasicShmup.Entities.Ships.Controllers;
 
-public partial class PlayerController : Node
+public partial class PlayerController : Node2D, IController
 {
-    // todo make public required property
-    [Inject]
-    private readonly IShipConfiguration _shipConfiguration = null!;
-
     private CharacterBody2D _body = new()
     {
         MotionMode = CharacterBody2D.MotionModeEnum.Floating
@@ -19,6 +14,7 @@ public partial class PlayerController : Node
     private CollisionShape2D _collisionShape = new();
 
     public required IShip Ship { get; init; }
+    public required IShipConfiguration ShipConfiguration { get; init; }
 
     public PlayerController()
     {
@@ -30,7 +26,7 @@ public partial class PlayerController : Node
     {
         _collisionShape.Shape = new CircleShape2D
         {
-            Radius = _shipConfiguration.ColliderRadius
+            Radius = ShipConfiguration.ColliderRadius
         };
     }
 
@@ -43,13 +39,14 @@ public partial class PlayerController : Node
     public override void _PhysicsProcess(double delta)
     {
         _collisionShape.Disabled = false;
+        _body.Position = Vector2.Zero;
 
         var movementDirection = InputActions.GetMovementDirection();
-        _body.Velocity = (_shipConfiguration.Speed * movementDirection).VectorValue;
+        _body.Velocity = (ShipConfiguration.Speed * movementDirection).VectorValue;
         _body.MoveAndSlide();
 
         _collisionShape.Disabled = true;
 
-        Ship.Position = _body.Position;
+        Ship.Position += new Displacement(_body.Position);
     }
 }
