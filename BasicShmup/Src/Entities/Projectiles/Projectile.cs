@@ -53,12 +53,12 @@ public partial class Projectile : Node2D
             Monitoring = true
         };
         area.AddChild(collisionShape);
-        area.BodyEntered += HitBody;
+        area.AreaEntered += AreaEntered;
 
         return area;
     }
 
-    private void HitBody(Node2D hitBody)
+    private void AreaEntered(Node2D hitBody)
     {
         var hitEntity = hitBody
             .GetChildren<EntityReference>()

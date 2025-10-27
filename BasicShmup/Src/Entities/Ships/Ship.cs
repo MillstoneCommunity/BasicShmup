@@ -9,7 +9,7 @@ using Godot;
 
 namespace BasicShmup.Entities.Ships;
 
-public partial class Ship : Node, IShip
+public partial class Ship : Node2D, IShip
 {
     [Inject]
     private readonly IEventSender _eventSender = null!;
@@ -17,26 +17,23 @@ public partial class Ship : Node, IShip
     [Inject]
     private readonly IShipConfiguration _shipConfiguration = null!;
 
-    private readonly CharacterBody2D _body = new()
-    {
-        MotionMode = CharacterBody2D.MotionModeEnum.Floating
-    };
+    private readonly Area2D _colliderArea = new();
 
     private IShipState _state = null!;
 
     public required IEntity RootEntity { get; init; }
 
-    public Vector2 Position
+    public new Position Position
     {
-        get => _body.Position;
-        set => _body.Position = value;
+        get => base.Position;
+        set => base.Position = value.VectorValue;
     }
 
     public bool IsDead => _state.IsDead;
 
     public override void _Ready()
     {
-        var shipState = new States.ShipState
+        var shipState = new ShipState
         {
             Health = _shipConfiguration.Health
         };
@@ -48,10 +45,10 @@ public partial class Ship : Node, IShip
             Radius = _shipConfiguration.ColliderRadius
         };
         var collisionShape = new CollisionShape2D { Shape = colliderShape };
-        _body.AddChild(collisionShape);
+        _colliderArea.AddChild(collisionShape);
 
         var entityReference = new EntityReference { Entity = RootEntity };
-        _body.AddChild(entityReference);
+        _colliderArea.AddChild(entityReference);
 
         var sprite = new Sprite2D
         {
@@ -59,19 +56,12 @@ public partial class Ship : Node, IShip
             Scale = _shipConfiguration.TextureScaling.AsUniformVector(),
             TextureFilter = CanvasItem.TextureFilterEnum.Nearest
         };
-        _body.AddChild(sprite);
+        _colliderArea.AddChild(sprite);
 
-        AddChild(_body);
+        AddChild(_colliderArea);
     }
 
     #region IShip
-
-    public void Move(Direction movementDirection)
-    {
-        var speed = _shipConfiguration.Speed;
-        _body.Velocity = (speed * movementDirection).VectorValue;
-        _body.MoveAndSlide();
-    }
 
     public void FireProjectile()
     {
@@ -83,7 +73,7 @@ public partial class Ship : Node, IShip
         var projectile = new Projectile
         {
             Source = RootEntity,
-            Position = _body.GlobalPosition,
+            Position = _colliderArea.GlobalPosition,
             MovementDirection = Direction.Right
         };
 

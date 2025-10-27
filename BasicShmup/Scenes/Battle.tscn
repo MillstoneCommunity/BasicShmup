@@ -32,25 +32,20 @@ metadata/_custom_type_script = "uid://cer7w66b71r6r"
 
 [node name="Enemy1" type="Node" parent="Enemies"]
 script = ExtResource("3_2h7oj")
-Position = Vector2(5650, 106)
 metadata/_custom_type_script = "uid://b8m0p8dsegrqc"
 
 [node name="Enemy2" type="Node" parent="Enemies"]
 script = ExtResource("3_2h7oj")
-Position = Vector2(4086, 469)
 metadata/_custom_type_script = "uid://b8m0p8dsegrqc"
 
 [node name="Enemy3" type="Node" parent="Enemies"]
 script = ExtResource("3_2h7oj")
-Position = Vector2(4538, 112)
 metadata/_custom_type_script = "uid://b8m0p8dsegrqc"
 
 [node name="Enemy4" type="Node" parent="Enemies"]
 script = ExtResource("3_2h7oj")
-Position = Vector2(2248, 243)
 metadata/_custom_type_script = "uid://b8m0p8dsegrqc"
 
 [node name="Enemy5" type="Node" parent="Enemies"]
 script = ExtResource("3_2h7oj")
-Position = Vector2(6442, 553)
 metadata/_custom_type_script = "uid://b8m0p8dsegrqc"

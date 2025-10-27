@@ -10,13 +10,6 @@ public partial class Enemy : Node, IEntity, IEventHandler<ProjectileHitEvent>
 {
     private readonly Ship _ship;
 
-    [Export]
-    public Vector2 Position
-    {
-        get => _ship.Position;
-        set => _ship.Position = value;
-    }
-
     public Enemy()
     {
         _ship = new Ship

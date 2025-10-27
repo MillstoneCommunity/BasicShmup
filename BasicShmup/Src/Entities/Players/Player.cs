@@ -14,7 +14,7 @@ public partial class Player : Node, IEntity, IEventHandler<ProjectileHitEvent>
     [Export]
     private Vector2 Position
     {
-        get => _ship.Position;
+        get => _ship.Position.VectorValue;
         set => _ship.Position = value;
     }
 
