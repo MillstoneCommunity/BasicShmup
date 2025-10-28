@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using BasicShmup.Dynamics;
+using BasicShmup.Entities.Ships.Controllers;
 using BasicShmup.Events;
 using BasicShmup.Extensions;
 using BasicShmup.ServiceProviders;
@@ -13,7 +14,7 @@ public partial class Projectile : Node2D
     [Inject]
     private readonly IProjectileConfiguration _projectileConfiguration = null!;
 
-    public required IEntity Source { get; init; }
+    public required IController SourceController { get; init; }
     public required Direction MovementDirection { get; init; }
 
     public override void _Ready()
@@ -53,27 +54,27 @@ public partial class Projectile : Node2D
             Monitoring = true
         };
         area.AddChild(collisionShape);
-        area.BodyEntered += HitBody;
+        area.AreaEntered += CollideWith;
 
         return area;
     }
 
-    private void HitBody(Node2D hitBody)
+    private void CollideWith(Node2D hitNode)
     {
-        var hitEntity = hitBody
-            .GetChildren<EntityReference>()
+        var hitController = hitNode
+            .GetChildren<ControllerReference>()
             .FirstOrDefault()
-            ?.Entity;
+            ?.Controller;
 
-        if (hitEntity == Source)
+        if (hitController == SourceController)
             return;
 
         QueueFree();
 
-        if (hitEntity is not IEventHandler<ProjectileHitEvent> eventHandler)
+        if (hitController is not IEventHandler<ProjectileCollisionEvent> eventHandler)
             return;
 
         var damage = _projectileConfiguration.Damage;
-        eventHandler.Handle(new ProjectileHitEvent(damage));
+        eventHandler.Handle(new ProjectileCollisionEvent(damage));
     }
 }

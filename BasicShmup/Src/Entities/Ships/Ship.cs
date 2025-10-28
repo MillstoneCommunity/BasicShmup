@@ -1,6 +1,9 @@
-﻿using BasicShmup.Dynamics;
+﻿using System.Linq;
+using BasicShmup.Dynamics;
 using BasicShmup.Entities.Battle;
 using BasicShmup.Entities.Projectiles;
+using BasicShmup.Entities.Ships.Controllers;
+using BasicShmup.Entities.Ships.States;
 using BasicShmup.Events;
 using BasicShmup.Extensions;
 using BasicShmup.ServiceProviders;
@@ -8,7 +11,8 @@ using Godot;
 
 namespace BasicShmup.Entities.Ships;
 
-public partial class Ship : Node, IShip
+[GlobalClass]
+public partial class Ship : Node2D, IShip
 {
     [Inject]
     private readonly IEventSender _eventSender = null!;
@@ -16,61 +20,114 @@ public partial class Ship : Node, IShip
     [Inject]
     private readonly IShipConfiguration _shipConfiguration = null!;
 
-    private readonly CharacterBody2D _body = new()
-    {
-        MotionMode = CharacterBody2D.MotionModeEnum.Floating
-    };
+    [Export]
+    private ControllerType _controllerType;
 
     private IShipState _state = null!;
+    private IController _controller = null!;
 
-    public required IEntity RootEntity { get; init; }
-
-    public Vector2 Position
+    public new Position Position
     {
-        get => _body.Position;
-        set => _body.Position = value;
+        get => base.Position;
+        set => base.Position = value.VectorValue;
     }
-
-    public bool IsDead => _state.IsDead;
 
     public override void _Ready()
     {
+        var controllerNode = CreateController(_shipConfiguration, _controllerType, out _controller);
+        AddChild(controllerNode);
+
+        var shipStateNode = CreateShipState(_shipConfiguration, out _state);
+        AddChild(shipStateNode);
+
+        var collider = CreateCollider(_shipConfiguration, _controller);
+        AddChild(collider);
+
+        var sprite = CreateSprite(_shipConfiguration);
+        AddChild(sprite);
+    }
+
+    private static Node CreateShipState(IShipConfiguration shipConfiguration, out IShipState state)
+    {
         var shipState = new ShipState
         {
-            Health = _shipConfiguration.Health
+            Health = shipConfiguration.Health
         };
-        _state = shipState;
-        AddChild(shipState);
+        state = shipState;
+
+        return shipState;
+    }
+
+    private Node CreateCollider(IShipConfiguration shipConfiguration, IController controller)
+    {
+        var colliderArea = new Area2D();
+        colliderArea.AreaEntered += CollideWith;
 
         var colliderShape = new CircleShape2D
         {
-            Radius = _shipConfiguration.ColliderRadius
+            Radius = shipConfiguration.ColliderRadius
         };
         var collisionShape = new CollisionShape2D { Shape = colliderShape };
-        _body.AddChild(collisionShape);
+        colliderArea.AddChild(collisionShape);
 
-        var entityReference = new EntityReference { Entity = RootEntity };
-        _body.AddChild(entityReference);
+        var entityReference = new ControllerReference { Controller = controller };
+        colliderArea.AddChild(entityReference);
 
-        var sprite = new Sprite2D
+        return colliderArea;
+    }
+
+    private void CollideWith(Node2D hitNode)
+    {
+        var hitController = hitNode
+            .GetChildren<ControllerReference>()
+            .FirstOrDefault()
+            ?.Controller;
+
+        if (hitController == _controller)
+            return;
+
+        if (hitController is not IEventHandler<ShipCollisionEvent> eventHandler)
+            return;
+
+        eventHandler.Handle(new ShipCollisionEvent(_shipConfiguration.DamageOnCollision));
+    }
+
+    private static Node CreateSprite(IShipConfiguration shipConfiguration)
+    {
+        return new Sprite2D
         {
-            Texture = _shipConfiguration.Texture,
-            Scale = _shipConfiguration.TextureScaling.AsUniformVector(),
-            TextureFilter = CanvasItem.TextureFilterEnum.Nearest
+            Texture = shipConfiguration.Texture,
+            Scale = shipConfiguration.TextureScaling.AsUniformVector(),
+            TextureFilter = TextureFilterEnum.Nearest
         };
-        _body.AddChild(sprite);
+    }
 
-        AddChild(_body);
+    private Node CreateController(
+        IShipConfiguration shipConfiguration,
+        ControllerType controllerType,
+        out IController controller)
+    {
+        if (controllerType == ControllerType.Player)
+        {
+            var playerController = new PlayerController
+            {
+                Ship = this,
+                ShipConfiguration = shipConfiguration
+            };
+            controller = playerController;
+            return playerController;
+        }
+
+        var enemyController = new EnemyController
+        {
+            Ship = this,
+            ShipConfiguration = shipConfiguration
+        };
+        controller = enemyController;
+        return enemyController;
     }
 
     #region IShip
-
-    public void Move(Direction movementDirection)
-    {
-        var speed = _shipConfiguration.Speed;
-        _body.Velocity = (speed * movementDirection).VectorValue;
-        _body.MoveAndSlide();
-    }
 
     public void FireProjectile()
     {
@@ -81,8 +138,8 @@ public partial class Ship : Node, IShip
 
         var projectile = new Projectile
         {
-            Source = RootEntity,
-            Position = _body.GlobalPosition,
+            SourceController = _controller,
+            Position = GlobalPosition,
             MovementDirection = Direction.Right
         };
 
@@ -92,6 +149,9 @@ public partial class Ship : Node, IShip
     public void TakeDamage(Damage damage)
     {
         _state.TakeDamage(damage);
+
+        if (_state.IsDead)
+            QueueFree();
     }
 
     #endregion

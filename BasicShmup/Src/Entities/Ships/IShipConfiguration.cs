@@ -1,4 +1,5 @@
 ﻿using BasicShmup.Dynamics;
+using BasicShmup.Entities.Ships.States;
 using Godot;
 
 namespace BasicShmup.Entities.Ships;
@@ -10,4 +11,5 @@ public interface IShipConfiguration
     Speed Speed { get; }
     float ColliderRadius { get; }
     Health Health { get; }
+    Damage DamageOnCollision { get; }
 }

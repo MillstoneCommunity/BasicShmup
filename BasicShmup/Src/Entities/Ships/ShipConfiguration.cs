@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using BasicShmup.Dynamics;
+using BasicShmup.Entities.Ships.States;
 using BasicShmup.ServiceProviders.Configurations;
 using Godot;
 using Microsoft.Extensions.DependencyInjection;
@@ -26,6 +27,10 @@ public partial class ShipConfiguration : Resource, IConfiguration, IShipConfigur
     [Export]
     private int _health = 3;
     public Health Health => _health;
+
+    [Export]
+    private int _damageOnCollision = 1;
+    public Damage DamageOnCollision => _damageOnCollision;
 
     public void Register(IServiceCollection serviceCollection)
     {
