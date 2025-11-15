@@ -1,5 +1,15 @@
 # Contribution guide
 
+## Requirements
+
+- [Dotnet 8](https://dotnet.microsoft.com/en-us/download/dotnet/8.0)
+- [Godot 4.5.X (dotnet)](https://godotengine.org/download)
+
+  *It is recommented the same Godot version as the [build image](./Infrastructure/Building/Dockerfile).
+  Currently, that is Godot 4.5.1.*
+
+## Principles
+
 At the moment I do not know how many people will want to contribute, nor what the background of a potential contributor
 will be.
 For this reason the following two principles should be in focus when developing this project.
