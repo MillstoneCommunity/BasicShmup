@@ -9,7 +9,7 @@ namespace BasicShmup.Entities.Ships.PowerUps;
 
 public class DoubleShotPowerUp(IEventSender eventSender) : IPowerUp, ICannon
 {
-    private const float AbsoluteProjectileOffset = 50;
+    private const float AbsoluteProjectileOffset = 20;
     private static readonly Displacement ProjectileOffset1 = new Vector2(0, AbsoluteProjectileOffset / 2);
     private static readonly Displacement ProjectileOffset2 = new Vector2(0, -AbsoluteProjectileOffset / 2);
 
