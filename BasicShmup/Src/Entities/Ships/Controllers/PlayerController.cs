@@ -1,4 +1,5 @@
-﻿using BasicShmup.Dynamics;
+﻿using System;
+using BasicShmup.Dynamics;
 using BasicShmup.Events;
 using BasicShmup.Input;
 using Godot;
@@ -33,8 +34,11 @@ public partial class PlayerController : Node2D, IController, IEventHandler<ShipC
 
     public override void _Process(double delta)
     {
+        var deltaTime = TimeSpan.FromSeconds(delta);
+        Ship.Update(deltaTime);
+
         if (InputActions.IsFiring)
-            Ship.FireProjectile();
+            Ship.FireProjectile(this);
     }
 
     public override void _PhysicsProcess(double delta)
