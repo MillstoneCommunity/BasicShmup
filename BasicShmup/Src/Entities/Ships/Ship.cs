@@ -3,11 +3,12 @@ using BasicShmup.Dynamics;
 using BasicShmup.Entities.Battle;
 using BasicShmup.Entities.Projectiles;
 using BasicShmup.Entities.Ships.Controllers;
+using BasicShmup.Entities.Ships.PowerUps;
 using BasicShmup.Events;
 
 namespace BasicShmup.Entities.Ships;
 
-public class Ship(IShipConfiguration shipConfiguration, IEventSender eventSender) : IShip
+public class Ship(IShipConfiguration shipConfiguration, IEventSender eventSender) : IShip, IPowerUpShip
 {
     private static readonly TimeSpan FiringCooldown = TimeSpan.FromSeconds(0.1f);
 
@@ -52,5 +53,10 @@ public class Ship(IShipConfiguration shipConfiguration, IEventSender eventSender
     public void TakeDamage(Damage damage)
     {
         _health -= damage;
+    }
+
+    public void AddPowerUp(IPowerUp powerUp)
+    {
+        powerUp.Apply(this);
     }
 }

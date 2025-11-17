@@ -1,4 +1,4 @@
-﻿namespace BasicShmup.Input;
+﻿namespace BasicShmup.Inputs;
 
 public static class FloatConstants
 {

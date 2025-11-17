@@ -1,4 +1,4 @@
-﻿using BasicShmup.Input;
+﻿using BasicShmup.Inputs;
 using Godot;
 
 namespace BasicShmup.Dynamics;

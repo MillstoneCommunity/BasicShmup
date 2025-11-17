@@ -1,7 +1,8 @@
 ﻿using System;
 using BasicShmup.Dynamics;
+using BasicShmup.Entities.Ships.PowerUps;
 using BasicShmup.Events;
-using BasicShmup.Input;
+using BasicShmup.Inputs;
 using Godot;
 
 namespace BasicShmup.Entities.Ships.Controllers;
@@ -39,6 +40,14 @@ public partial class PlayerController : Node2D, IController, IEventHandler<ShipC
 
         if (InputActions.IsFiring)
             Ship.FireProjectile(this);
+
+        if (InputActions.AddPowerUp)
+            AddPowerUp();
+    }
+
+    private void AddPowerUp()
+    {
+        Ship.AddPowerUp(NullPowerUp.Instance);
     }
 
     public override void _PhysicsProcess(double delta)
