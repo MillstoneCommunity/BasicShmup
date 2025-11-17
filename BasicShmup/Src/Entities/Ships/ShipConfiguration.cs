@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 using BasicShmup.Dynamics;
 using BasicShmup.ServiceProviders.Configurations;
 using Godot;
@@ -30,6 +31,10 @@ public partial class ShipConfiguration : Resource, IConfiguration, IShipConfigur
     [Export]
     private int _damageOnCollision = 1;
     public Damage DamageOnCollision => _damageOnCollision;
+
+    [Export]
+    private float _firingCooldownInSeconds = 0.1f;
+    public TimeSpan FiringCooldown => TimeSpan.FromSeconds(_firingCooldownInSeconds);
 
     public void Register(IServiceCollection serviceCollection)
     {

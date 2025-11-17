@@ -2,4 +2,5 @@
 
 public interface IPowerUpShip
 {
+    void SetCannon(ICannon cannon);
 }

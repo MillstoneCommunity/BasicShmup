@@ -3,12 +3,16 @@ using BasicShmup.Dynamics;
 using BasicShmup.Entities.Ships.PowerUps;
 using BasicShmup.Events;
 using BasicShmup.Inputs;
+using BasicShmup.ServiceProviders;
 using Godot;
 
 namespace BasicShmup.Entities.Ships.Controllers;
 
 public partial class PlayerController : Node2D, IController, IEventHandler<ShipCollisionEvent>
 {
+    [Inject]
+    private IEventSender _eventSender = null!;
+
     private CharacterBody2D _body = new()
     {
         MotionMode = CharacterBody2D.MotionModeEnum.Floating
@@ -47,7 +51,7 @@ public partial class PlayerController : Node2D, IController, IEventHandler<ShipC
 
     private void AddPowerUp()
     {
-        Ship.AddPowerUp(NullPowerUp.Instance);
+        Ship.AddPowerUp(new DoubleShotPowerUp(_eventSender));
     }
 
     public override void _PhysicsProcess(double delta)

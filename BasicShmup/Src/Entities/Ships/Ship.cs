@@ -1,7 +1,5 @@
 ﻿using System;
 using BasicShmup.Dynamics;
-using BasicShmup.Entities.Battle;
-using BasicShmup.Entities.Projectiles;
 using BasicShmup.Entities.Ships.Controllers;
 using BasicShmup.Entities.Ships.PowerUps;
 using BasicShmup.Events;
@@ -10,12 +8,14 @@ namespace BasicShmup.Entities.Ships;
 
 public class Ship(IShipConfiguration shipConfiguration, IEventSender eventSender) : IShip, IPowerUpShip
 {
-    private static readonly TimeSpan FiringCooldown = TimeSpan.FromSeconds(0.1f);
-
     private TimeSpan _remainingFiringCooldown = TimeSpan.Zero;
     private Health _health = shipConfiguration.Health;
 
+    private ICannon _cannon = new SingleShotCannon(eventSender);
+
     private bool CanFire => _remainingFiringCooldown == TimeSpan.Zero;
+
+    #region IShip
 
     public bool IsDead => _health == 0;
     public Position Position { get; set; }
@@ -34,20 +34,12 @@ public class Ship(IShipConfiguration shipConfiguration, IEventSender eventSender
             return;
 
         SetFireCooldown();
-
-        var projectile = new Projectile
-        {
-            SourceController = controller,
-            Position = Position.VectorValue,
-            MovementDirection = Direction.Right
-        };
-
-        eventSender.Send(new SpawnBattleNodeEvent(projectile));
+        _cannon.FireProjectile(controller, Position);
     }
 
     private void SetFireCooldown()
     {
-        _remainingFiringCooldown = FiringCooldown;
+        _remainingFiringCooldown = shipConfiguration.FiringCooldown;
     }
 
     public void TakeDamage(Damage damage)
@@ -59,4 +51,15 @@ public class Ship(IShipConfiguration shipConfiguration, IEventSender eventSender
     {
         powerUp.Apply(this);
     }
+
+    #endregion
+
+    #region IPowerUpShip
+
+    public void SetCannon(ICannon cannon)
+    {
+        _cannon = cannon;
+    }
+
+    #endregion
 }
