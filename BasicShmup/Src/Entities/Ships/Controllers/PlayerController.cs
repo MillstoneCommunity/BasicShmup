@@ -11,7 +11,7 @@ namespace BasicShmup.Entities.Ships.Controllers;
 public partial class PlayerController : Node2D, IController, IEventHandler<ShipCollisionEvent>
 {
     [Inject]
-    private IEventSender _eventSender = null!;
+    private readonly IEventSender _eventSender = null!;
 
     private CharacterBody2D _body = new()
     {
