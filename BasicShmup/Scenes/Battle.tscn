@@ -1,10 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://bfse04nirndcg"]
+[gd_scene load_steps=4 format=3 uid="uid://bfse04nirndcg"]
 
 [ext_resource type="Script" uid="uid://cd4fpcsbbs612" path="res://Src/Entities/Battle/Battle.cs" id="1_2h7oj"]
 [ext_resource type="Script" uid="uid://bl5u611xvipjm" path="res://Src/Entities/Ships/ShipView.cs" id="3_1samx"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_wvl2i"]
-size = Vector2(1600, 10)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vr6xi"]
 size = Vector2(1600, 10)
@@ -13,10 +10,6 @@ size = Vector2(1600, 10)
 script = ExtResource("1_2h7oj")
 
 [node name="Walls" type="StaticBody2D" parent="."]
-
-[node name="Top" type="CollisionShape2D" parent="Walls"]
-position = Vector2(550, -5)
-shape = SubResource("RectangleShape2D_wvl2i")
 
 [node name="Bottom" type="CollisionShape2D" parent="Walls"]
 position = Vector2(550, 653)
