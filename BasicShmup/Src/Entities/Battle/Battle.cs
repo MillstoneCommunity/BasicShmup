@@ -10,6 +10,11 @@ public partial class Battle : Node, IEventHandler<SpawnBattleNodeEvent>
     [Inject]
     private readonly IEventReceiver _eventReceiver = null!;
 
+    public Battle()
+    {
+        AddChild(new BattleBounds());
+    }
+
     public override void _Ready()
     {
         _eventReceiver.RegisterEventHandler(this);

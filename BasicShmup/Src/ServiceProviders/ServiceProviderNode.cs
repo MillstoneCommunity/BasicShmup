@@ -39,7 +39,7 @@ public partial class ServiceProviderNode : Node
 
         return new ServiceCollection()
             .AddServices()
-            .AddConfigurations(configurations)
+            .AddConfigurations(configurations, GetViewport())
             .BuildServiceProvider(
 #if TOOLS
                 new ServiceProviderOptions
