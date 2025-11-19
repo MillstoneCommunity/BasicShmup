@@ -13,7 +13,7 @@ public partial class ProjectileController : Node
     public override void _PhysicsProcess(double delta)
     {
         var deltaTime = TimeSpan.FromSeconds(delta);
-        var deltaMovement = (Speed * deltaTime) * MovementDirection;
+        var deltaMovement = Speed * deltaTime * MovementDirection;
 
         MovementRoot.Position += deltaMovement.VectorValue;
     }

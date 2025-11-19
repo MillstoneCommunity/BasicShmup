@@ -69,10 +69,10 @@ public partial class Projectile : Node2D
         if (hitController == SourceController)
             return;
 
-        QueueFree();
-
         if (hitController is not IEventHandler<ProjectileCollisionEvent> eventHandler)
             return;
+
+        QueueFree();
 
         var damage = _projectileConfiguration.Damage;
         eventHandler.Handle(new ProjectileCollisionEvent(damage));

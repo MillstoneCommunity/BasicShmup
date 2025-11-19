@@ -26,7 +26,7 @@ public class EventBroker : IEventSender, IEventReceiver
         if (eventHandlers == null)
             return;
 
-        var index = eventHandlers.IndexOf(eventHandlers);
+        var index = eventHandlers.IndexOf(eventHandler);
         var eventHandlerIsRegistered = index >= 0;
         if (!eventHandlerIsRegistered)
             return;

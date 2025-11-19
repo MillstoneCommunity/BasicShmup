@@ -1,7 +1,7 @@
 ﻿using BasicShmup.Dynamics;
 using Godot;
 
-namespace BasicShmup.Input;
+namespace BasicShmup.Inputs;
 
 public static class InputActions
 {
@@ -12,12 +12,13 @@ public static class InputActions
     private const string FireActionName = "Fire";
 
 
-    public static bool IsFiring => Godot.Input.IsActionPressed(FireActionName);
+    public static bool IsFiring => Input.IsActionPressed(FireActionName);
+    public static bool AddPowerUp => Input.IsKeyPressed(Key.Key1);
 
     public static Direction GetMovementDirection()
     {
-        var horizontalMovement = Godot.Input.GetAxis(MoveLeftActionName, MoveRightActionName);
-        var verticalMovement = Godot.Input.GetAxis(MoveUpActionName, MoveDownActionName);
+        var horizontalMovement = Input.GetAxis(MoveLeftActionName, MoveRightActionName);
+        var verticalMovement = Input.GetAxis(MoveUpActionName, MoveDownActionName);
 
         var movement = new Vector2(horizontalMovement, verticalMovement);
 

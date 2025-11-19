@@ -1,157 +1,64 @@
-﻿using System.Linq;
+﻿using System;
 using BasicShmup.Dynamics;
-using BasicShmup.Entities.Battle;
-using BasicShmup.Entities.Projectiles;
 using BasicShmup.Entities.Ships.Controllers;
-using BasicShmup.Entities.Ships.States;
+using BasicShmup.Entities.Ships.PowerUps;
 using BasicShmup.Events;
-using BasicShmup.Extensions;
-using BasicShmup.ServiceProviders;
-using Godot;
 
 namespace BasicShmup.Entities.Ships;
 
-[GlobalClass]
-public partial class Ship : Node2D, IShip
+public class Ship(IShipConfiguration shipConfiguration, IEventSender eventSender) : IShip, IPowerUpShip
 {
-    [Inject]
-    private readonly IEventSender _eventSender = null!;
+    private TimeSpan _remainingFiringCooldown = TimeSpan.Zero;
+    private Health _health = shipConfiguration.Health;
 
-    [Inject]
-    private readonly IShipConfiguration _shipConfiguration = null!;
+    private ICannon _cannon = new SingleShotCannon(eventSender);
 
-    [Export]
-    private ControllerType _controllerType;
-
-    private IShipState _state = null!;
-    private IController _controller = null!;
-
-    public new Position Position
-    {
-        get => base.Position;
-        set => base.Position = value.VectorValue;
-    }
-
-    public override void _Ready()
-    {
-        var controllerNode = CreateController(_shipConfiguration, _controllerType, out _controller);
-        AddChild(controllerNode);
-
-        var shipStateNode = CreateShipState(_shipConfiguration, out _state);
-        AddChild(shipStateNode);
-
-        var collider = CreateCollider(_shipConfiguration, _controller);
-        AddChild(collider);
-
-        var sprite = CreateSprite(_shipConfiguration);
-        AddChild(sprite);
-    }
-
-    private static Node CreateShipState(IShipConfiguration shipConfiguration, out IShipState state)
-    {
-        var shipState = new ShipState
-        {
-            Health = shipConfiguration.Health
-        };
-        state = shipState;
-
-        return shipState;
-    }
-
-    private Node CreateCollider(IShipConfiguration shipConfiguration, IController controller)
-    {
-        var colliderArea = new Area2D();
-        colliderArea.AreaEntered += CollideWith;
-
-        var colliderShape = new CircleShape2D
-        {
-            Radius = shipConfiguration.ColliderRadius
-        };
-        var collisionShape = new CollisionShape2D { Shape = colliderShape };
-        colliderArea.AddChild(collisionShape);
-
-        var entityReference = new ControllerReference { Controller = controller };
-        colliderArea.AddChild(entityReference);
-
-        return colliderArea;
-    }
-
-    private void CollideWith(Node2D hitNode)
-    {
-        var hitController = hitNode
-            .GetChildren<ControllerReference>()
-            .FirstOrDefault()
-            ?.Controller;
-
-        if (hitController == _controller)
-            return;
-
-        if (hitController is not IEventHandler<ShipCollisionEvent> eventHandler)
-            return;
-
-        eventHandler.Handle(new ShipCollisionEvent(_shipConfiguration.DamageOnCollision));
-    }
-
-    private static Node CreateSprite(IShipConfiguration shipConfiguration)
-    {
-        return new Sprite2D
-        {
-            Texture = shipConfiguration.Texture,
-            Scale = shipConfiguration.TextureScaling.AsUniformVector(),
-            TextureFilter = TextureFilterEnum.Nearest
-        };
-    }
-
-    private Node CreateController(
-        IShipConfiguration shipConfiguration,
-        ControllerType controllerType,
-        out IController controller)
-    {
-        if (controllerType == ControllerType.Player)
-        {
-            var playerController = new PlayerController
-            {
-                Ship = this,
-                ShipConfiguration = shipConfiguration
-            };
-            controller = playerController;
-            return playerController;
-        }
-
-        var enemyController = new EnemyController
-        {
-            Ship = this,
-            ShipConfiguration = shipConfiguration
-        };
-        controller = enemyController;
-        return enemyController;
-    }
+    private bool CanFire => _remainingFiringCooldown == TimeSpan.Zero;
 
     #region IShip
 
-    public void FireProjectile()
+    public bool IsDead => _health == 0;
+    public Position Position { get; set; }
+
+    public void Update(TimeSpan deltaTime)
     {
-        if (!_state.CanFire)
+        if (_remainingFiringCooldown < deltaTime)
+            _remainingFiringCooldown = TimeSpan.Zero;
+        else
+            _remainingFiringCooldown -= deltaTime;
+    }
+
+    public void FireProjectile(IController controller)
+    {
+        if (!CanFire)
             return;
 
-        _state.SetFireCooldown();
+        SetFireCooldown();
+        _cannon.FireProjectile(controller, Position);
+    }
 
-        var projectile = new Projectile
-        {
-            SourceController = _controller,
-            Position = GlobalPosition,
-            MovementDirection = Direction.Right
-        };
-
-        _eventSender.Send(new SpawnBattleNodeEvent(projectile));
+    private void SetFireCooldown()
+    {
+        _remainingFiringCooldown = shipConfiguration.FiringCooldown;
     }
 
     public void TakeDamage(Damage damage)
     {
-        _state.TakeDamage(damage);
+        _health -= damage;
+    }
 
-        if (_state.IsDead)
-            QueueFree();
+    public void AddPowerUp(IPowerUp powerUp)
+    {
+        powerUp.Apply(this);
+    }
+
+    #endregion
+
+    #region IPowerUpShip
+
+    public void SetCannon(ICannon cannon)
+    {
+        _cannon = cannon;
     }
 
     #endregion

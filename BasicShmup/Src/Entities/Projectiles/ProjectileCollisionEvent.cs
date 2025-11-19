@@ -1,4 +1,4 @@
-﻿using BasicShmup.Entities.Ships.States;
+﻿using BasicShmup.Entities.Ships;
 
 namespace BasicShmup.Entities.Projectiles;
 

@@ -1,5 +1,5 @@
 ﻿using BasicShmup.Dynamics;
-using BasicShmup.Entities.Ships.States;
+using BasicShmup.Entities.Ships;
 using Godot;
 
 namespace BasicShmup.Entities.Projectiles;
