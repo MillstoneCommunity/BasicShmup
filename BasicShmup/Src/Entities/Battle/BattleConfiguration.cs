@@ -2,8 +2,8 @@
 
 namespace BasicShmup.Entities.Battle;
 
-public class BattleConfiguration : IBattleConfiguration
+public class BattleConfiguration(Viewport mainViewport) : IBattleConfiguration
 {
-    public Vector2 BoundaryMinimum => Vector2.Zero;
-    public Vector2 BoundaryMaximum => DisplayServer.WindowGetSize();
+    public Vector2 BoundaryMinimum => mainViewport.GetVisibleRect().Position;
+    public Vector2 BoundaryMaximum => mainViewport.GetVisibleRect().Size;
 }
