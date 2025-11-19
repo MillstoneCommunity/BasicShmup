@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://cd4fpcsbbs612" path="res://Src/Entities/Battle/Battle.cs" id="1_2h7oj"]
 [ext_resource type="Script" uid="uid://bl5u611xvipjm" path="res://Src/Entities/Ships/ShipView.cs" id="3_1samx"]
 
-[node name="Battle" type="Node2D"]
+[node name="Battle" type="Node"]
 script = ExtResource("1_2h7oj")
 
 [node name="Enemies" type="Node" parent="."]
